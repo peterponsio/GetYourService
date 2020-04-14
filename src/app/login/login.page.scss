@@ -1,0 +1,50 @@
+.container-Login
+{
+    margin: 100 auto;
+}
+
+.container-Login ion-card
+{
+   margin-top: 3em;
+}
+
+ion-card p{
+    text-align: center;
+    align-content: center;
+    font-weight: 700;
+    font-size: x-large;
+    font-family: sans-serif;
+}
+
+// .logo_img img{
+//     height: 15em;
+//     width: 15em;
+//     align-content: center;
+//     text-align: center;
+// }
+.logo_img {
+    margin: 0 auto;
+    align-content: center;
+    text-align: center;
+}
+div{
+    position: relative;
+    width: 100%;
+    height: 2em;
+
+}
+ a{
+    list-style: none;
+    text-decoration: none;
+    align-content: flex-end;
+    margin-right: 0;
+    position: absolute;
+    right: 1em;
+
+}
+ div ion-button{
+    text-align: center;
+    align-content: center;
+    margin-left: 40%;
+
+}

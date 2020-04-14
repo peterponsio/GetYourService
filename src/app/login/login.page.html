@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button><ion-icon name="arrow-back-outline"></ion-icon></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="container-Login">
+
+  <ion-card class="logo_img">
+    <ion-card-content>
+      <img class="main_img" src="./assets/gys/logo_transparent.png">
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+      
+      <ion-label position="floating">E-Mail</ion-label>
+      <ion-input  type="text" [(ngModel)]="email"></ion-input>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input  type="password" [(ngModel)]="password"></ion-input>
+   
+    </ion-card-content>
+  </ion-card>
+
+  <div>
+    <a href="/forgot">Forgot your password</a>
+  
+
+  </div>
+  <div>  
+    <ion-button (click)="onClick()" color="dark">
+
+    Sing In
+   </ion-button>
+  </div>
+
+
+
+
+</ion-content>

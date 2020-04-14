@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="tools">
+      <ion-searchbar showCancelButton="focus"></ion-searchbar>
+      <ion-icon name="options-outline" class="filter"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="container-list">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  -->
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item>
+        <img
+          class="item_img"
+          src="./assets/gys/logo_transparent.png"
+          alt="Announcement image"
+        />
+        <div>
+          <h1>Item</h1>
+
+          <h3>Categorie</h3>
+
+          <h4>Location</h4>
+        </div>
+        <div>
+          <ion-button
+            (click)="Call()"
+            expand="block"
+            fill="clear"
+            shape="round"
+          >
+            Call
+          </ion-button>
+          <ion-button
+            (click)="Text()"
+            expand="block"
+            fill="clear"
+            shape="round"
+          >
+            Text
+          </ion-button>
+        </div>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="Report(item)" color="danger"
+          >Report</ion-item-option
+        >
+        <ion-item-option (click)="DontShowAgain(item)" color="warning"
+          >Dont show again</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!--  -->
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
