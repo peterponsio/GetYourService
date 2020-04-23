@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filters</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-button (click)="onClickClean()" color="dark" class="clean">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Clean
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="filters">
+  <ion-searchbar showCancelButton="focus"></ion-searchbar>
+
+  <ion-item>
+    <ion-label>Categorie</ion-label>
+    <ion-select
+      [interfaceOptions]="CategoriesOptions"
+      interface="popover"
+      placeholder="Select One"
+    >
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+      <ion-select-option value="black">Black</ion-select-option>
+      <ion-select-option value="red">Red</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Location</ion-label>
+    <ion-select
+      [interfaceOptions]="LocationOptions"
+      interface="popover"
+      placeholder="Select One"
+    >
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+      <ion-select-option value="black">Black</ion-select-option>
+      <ion-select-option value="red">Red</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-range
+    dualKnobs="true"
+    min="0"
+    max="5000"
+    step="10"
+    snaps="true"
+    pin="true"
+    ticks="true"
+    [(ngModel)]="rango"
+    color="dark"
+  >
+  </ion-range>
+
+  <ion-button (click)="onClickApply()" color="dark">
+    <ion-icon name="funnel-outline"></ion-icon>
+    Apply
+  </ion-button>
+</ion-content>

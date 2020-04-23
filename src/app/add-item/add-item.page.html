@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Your Announcement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="add_items">
+  <ion-item>
+    <ion-label position="floating">Announcement</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Categorie</ion-label>
+    <ion-select
+      [interfaceOptions]="customPopoverOptions"
+      interface="popover"
+      placeholder="Select One"
+    >
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+      <ion-select-option value="black">Black</ion-select-option>
+      <ion-select-option value="red">Red</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Service Price</ion-label>
+    <ion-input type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Name</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Mail</ion-label>
+    <ion-input type="mail"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-textarea></ion-textarea>
+  </ion-item>
+  <ion-button (click)="onClick()" color="dark">
+    <ion-icon slot="start" name="add"></ion-icon>
+    Publish
+  </ion-button>
+</ion-content>

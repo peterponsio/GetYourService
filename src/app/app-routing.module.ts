@@ -1,56 +1,81 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
   {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    path: "tabs",
+    loadChildren: () =>
+      import("./tabs/tabs.module").then((m) => m.TabsPageModule),
   },
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    path: "login",
+    loadChildren: () =>
+      import("./login/login.module").then((m) => m.LoginPageModule),
   },
   {
-    path: '',
-    loadChildren: () => import('./start-page/start-page.module').then( m => m.StartPagePageModule)
+    path: "",
+    loadChildren: () =>
+      import("./start-page/start-page.module").then(
+        (m) => m.StartPagePageModule
+      ),
   },
   {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    path: "register",
+    loadChildren: () =>
+      import("./register/register.module").then((m) => m.RegisterPageModule),
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
+    path: "list",
+    loadChildren: () =>
+      import("./list/list.module").then((m) => m.ListPageModule),
   },
   {
-    path: 'service-info',
-    loadChildren: () => import('./service-info/service-info.module').then( m => m.ServiceInfoPageModule)
+    path: "service-info",
+    loadChildren: () =>
+      import("./service-info/service-info.module").then(
+        (m) => m.ServiceInfoPageModule
+      ),
   },
   {
-    path: 'account',
-    loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
+    path: "account",
+    loadChildren: () =>
+      import("./account/account.module").then((m) => m.AccountPageModule),
+  },
+
+  {
+    path: "settings",
+    loadChildren: () =>
+      import("./settings/settings.module").then((m) => m.SettingsPageModule),
   },
   {
-    path: 'my-services',
-    loadChildren: () => import('./my-services/my-services.module').then( m => m.MyServicesPageModule)
+    path: "my-favorites",
+    loadChildren: () =>
+      import("./my-favorites/my-favorites.module").then(
+        (m) => m.MyFavoritesPageModule
+      ),
   },
   {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+    path: "terms-and-conditions",
+    loadChildren: () =>
+      import("./terms-and-conditions/terms-and-conditions.module").then(
+        (m) => m.TermsAndConditionsPageModule
+      ),
   },
   {
-    path: 'my-favorites',
-    loadChildren: () => import('./my-favorites/my-favorites.module').then( m => m.MyFavoritesPageModule)
+    path: "add-item",
+    loadChildren: () =>
+      import("./add-item/add-item.module").then((m) => m.AddItemPageModule),
   },
   {
-    path: 'terms-and-conditions',
-    loadChildren: () => import('./terms-and-conditions/terms-and-conditions.module').then( m => m.TermsAndConditionsPageModule)
-  }
+    path: "filter",
+    loadChildren: () =>
+      import("./filter/filter.module").then((m) => m.FilterPageModule),
+  },
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,9 +1,59 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>My_favorites</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="favs">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>My Favorite Announcemnets</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list
+        ><ion-item-sliding class="item">
+          <ion-item>
+            <img
+              class="item_img"
+              src="./assets/gys/logo_transparent.png"
+              alt="Announcement image"
+            />
+            <ion-grid fixed>
+              <ion-row>
+                <div class="info_items">
+                  <h5>Item</h5>
 
+                  <h6>Price/h</h6>
+
+                  <h6>Categorie</h6>
+
+                  <h6>Location</h6>
+                </div>
+              </ion-row>
+              <ion-row class="item_buttons">
+                <ion-button (click)="Call()" color="dark">
+                  Call
+                </ion-button>
+                <ion-button (click)="Text()" color="dark">
+                  Text
+                </ion-button>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option (click)="Report(item)" color="danger"
+              >Report</ion-item-option
+            >
+            <ion-item-option (click)="DontShowAgain(item)" color="warning"
+              >Dont show again</ion-item-option
+            >
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
