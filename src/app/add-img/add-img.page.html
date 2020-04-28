@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button
+      (click)="onClickCloseModal()"
+      expand="block"
+      fill="clear"
+      shape="round"
+      slot="start"
+      color="dark"
+    >
+      Cerrar
+    </ion-button>
+    <ion-button
+      (click)="onClickCloseModalContinue()"
+      expand="block"
+      fill="clear"
+      shape="round"
+      slot="end"
+      color="dark"
+    >
+      OK
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal">
+  <div class="">
+    <ion-icon name="checkmark-done-circle-outline" color="dark"></ion-icon>
+    <div>Your annoucement has already published</div>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>
+        <img src="./assets/gys/logo_transparent.png" alt="Announcement image" />
+      </ion-card-subtitle>
+      <ion-card-title>Upload a picture</ion-card-title>
+      <ion-card-content>
+        The announcements with photos gain more atention
+      </ion-card-content>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-button
+    class="addImg"
+    (click)="onClickAddIMG()"
+    color="dark"
+    expand="full"
+    vertical="bottom"
+  >
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Add Picture
+  </ion-button>
+</ion-content>

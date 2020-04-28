@@ -18,14 +18,24 @@
   <ion-card>
     <ion-card-content>
       <ion-label position="floating">E-Mail</ion-label>
-      <ion-input type="text" [(ngModel)]="email"></ion-input>
+      <ion-input type="text" [(ngModel)]="inputMail"></ion-input>
+      <div *ngIf="inputMailInvalid" class="invalidField">
+        <ion-icon class="infoIcon" name="information-outline"></ion-icon>
+        <span>Mail Invalid</span>
+      </div>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="inputPassword"></ion-input>
+      <div *ngIf="inputPasswordInvalid" class="invalidField">
+        <ion-icon class="infoIcon" name="information-outline"></ion-icon>
+        <span>Password Invalid</span>
+      </div>
     </ion-card-content>
   </ion-card>
 
   <div>
-    <a href="/forgot">Forgot your password</a>
+    <a style="cursor: pointer;" (click)="onClickForgot()"
+      >Forgot your password</a
+    >
   </div>
   <div>
     <ion-button (click)="onClickSingIn()" color="dark">

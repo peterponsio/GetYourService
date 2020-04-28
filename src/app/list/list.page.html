@@ -24,7 +24,10 @@
 
   <!--  -->
   <ion-list>
-    <ion-item-sliding class="item">
+    <ion-item-sliding
+      class="item"
+      *ngFor="let announcement of listAnnouncements"
+    >
       <ion-item>
         <img
           class="item_img"
@@ -34,13 +37,13 @@
         <ion-grid fixed>
           <ion-row>
             <div class="info_items">
-              <h5>Item</h5>
-
-              <h6>Price/h</h6>
-
-              <h6>Categorie</h6>
-
-              <h6>Location</h6>
+              <h6>{{announcement.tittle}}</h6>
+              <h6>{{announcement.price}} €</h6>
+              <p>{{announcement.description}}</p>
+              <span class="more_info">
+                <p>Categorie : {{announcement.categorie}}</p>
+                <p>Location: {{announcement.Location}}</p>
+              </span>
             </div>
 
             <ion-icon class="like" name="heart-outline"></ion-icon>
@@ -59,9 +62,9 @@
         <ion-item-option (click)="Report(item)" color="danger"
           >Report</ion-item-option
         >
-        <ion-item-option (click)="DontShowAgain(item)" color="warning"
+        <!-- <ion-item-option (click)="DontShowAgain(item)" color="warning"
           >Dont show again</ion-item-option
-        >
+        > -->
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
@@ -76,19 +79,15 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ion-fab class="float_button" vertical="bottom" horizontal="end" slot="fixed">
+  <!-- <ion-fab
+    id="add_button"
+    class="float_button"
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+  >
     <ion-fab-button>
-      <ion-icon name="build-outline"></ion-icon>
+      <ion-icon name="duplicate-outline"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button>
-        <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-    <ion-fab-list side="start">
-      <ion-fab-button>
-        <ion-icon name="heart-half-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

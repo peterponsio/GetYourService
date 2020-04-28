@@ -1,47 +1,105 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Your Announcement</ion-title>
+    <ion-title class="add_tittle">Add Your Announcement</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="add_items">
-  <ion-item>
-    <ion-label position="floating">Announcement</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Announcement Data</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Announcement</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="announcement"
+          clearInput
+        ></ion-input>
+      </ion-item>
 
-  <ion-item>
-    <ion-label>Categorie</ion-label>
-    <ion-select
-      [interfaceOptions]="customPopoverOptions"
-      interface="popover"
-      placeholder="Select One"
-    >
-      <ion-select-option value="brown">Brown</ion-select-option>
-      <ion-select-option value="blonde">Blonde</ion-select-option>
-      <ion-select-option value="black">Black</ion-select-option>
-      <ion-select-option value="red">Red</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-item>
+        <ion-label>Categorie</ion-label>
+        <ion-select
+          [(ngModel)]="categorie"
+          [interfaceOptions]="customPopoverOptions"
+          interface="popover"
+          placeholder="Select One"
+        >
+          <ion-select-option
+            *ngFor="let categorie of listCategories"
+            [value]="categorie.categorie"
+            >{{categorie.categorie}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="description"
+          maxlength="100"
+          clearInput
+        ></ion-input>
+      </ion-item>
 
-  <ion-item>
-    <ion-label position="floating">Service Price</ion-label>
-    <ion-input type="number"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Name</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Mail</ion-label>
-    <ion-input type="mail"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Description</ion-label>
-    <ion-textarea></ion-textarea>
-  </ion-item>
-  <ion-button (click)="onClick()" color="dark">
-    <ion-icon slot="start" name="add"></ion-icon>
-    Publish
-  </ion-button>
+      <ion-item>
+        <ion-label position="floating">Service Price</ion-label>
+        <ion-input type="number" [(ngModel)]="price" clearInput></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Location</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Location</ion-label>
+        <ion-select placeholder="Citie" [(ngModel)]="location">
+          <ion-select-option
+            *ngFor="let citie of listCities"
+            [value]="citie.city"
+            >{{citie.city}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Contact Data</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" [(ngModel)]="userName" clearInput></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Mail</ion-label>
+        <ion-input type="mail" [(ngModel)]="userEmail" clearInput></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Telephone number</ion-label>
+        <ion-input
+          type="tel"
+          [(ngModel)]="telephone"
+          maxlength="8"
+          minLength="6"
+          clearInput
+        ></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="add_button">
+    <ion-button (click)="onClickAddAnnouncement()" color="dark" expand="block">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Publish
+    </ion-button>
+  </ion-card>
 </ion-content>

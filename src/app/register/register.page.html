@@ -18,15 +18,31 @@
   <ion-card>
     <ion-card-content>
       <ion-label position="floating">Name: </ion-label>
-      <ion-input type="text" [(ngModel)]="inputName"></ion-input>
+      <ion-input required type="text" [(ngModel)]="inputName"></ion-input>
+      <div *ngIf="inputNameInvalid" class="invalidField">
+        <ion-icon class="infoIcon" name="information-outline"></ion-icon>
+        <span>Name Invalid</span>
+      </div>
       <ion-label position="floating">E-Mail :</ion-label>
-      <ion-input type="text" [(ngModel)]="inputMail"></ion-input>
+      <ion-input type="email" [(ngModel)]="inputMail"></ion-input>
+      <div *ngIf="inputMailInvalid" class="invalidField">
+        <ion-icon class="infoIcon" name="information-outline"></ion-icon>
+        <span>Mail invalid or bad formated</span>
+      </div>
       <ion-label position="floating">Password :</ion-label>
       <ion-input type="password" [(ngModel)]="inputPassword"></ion-input>
+      <div *ngIf="inputPasswordInvalid" class="invalidField">
+        <ion-icon class="infoIcon" name="information-outline"></ion-icon>
+        <span>Password have to be more length than 6</span>
+      </div>
       <div>
         <ion-item>
           <ion-label>Accept all the conditions</ion-label>
           <ion-toggle slot="end" [(ngModel)]="terms"></ion-toggle>
+          <div *ngIf="inputTermsInvalid" class="invalidField">
+            <ion-icon class="infoIcon" name="information-outline"></ion-icon>
+            <span>Accept our terms</span>
+          </div>
         </ion-item>
       </div>
     </ion-card-content>

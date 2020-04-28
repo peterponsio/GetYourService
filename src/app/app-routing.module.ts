@@ -71,6 +71,14 @@ const routes: Routes = [
     loadChildren: () =>
       import("./filter/filter.module").then((m) => m.FilterPageModule),
   },
+  {
+    path: 'popover',
+    loadChildren: () => import('./popover/popover.module').then( m => m.PopoverPageModule)
+  },
+  {
+    path: 'add-img',
+    loadChildren: () => import('./add-img/add-img.module').then( m => m.AddImgPageModule)
+  },
 ];
 @NgModule({
   imports: [

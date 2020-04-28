@@ -13,17 +13,25 @@ ion-searchbar {
   width: 10%;
 }
 .item_img {
-  height: 5em;
+  height: fit-content;
   width: 5em;
 }
 .info_items {
   width: 100%;
-  height: 9em;
+  height: fit-content;
+  font-size: x-small;
+  margin-top: 0px;
+  margin-top: 0;
+}
+.info_items * {
+  margin-top: 0px;
+  padding-top: 0px;
 }
 
 .item_buttons * {
   margin-left: 2em;
   width: 7em;
+  margin-top: 0;
 }
 .like {
   position: absolute;
@@ -37,4 +45,19 @@ ion-searchbar {
 .item {
   border: 1px solid grey;
   border-radius: 1em;
+  height: fit-content;
+}
+.more_info * {
+  float: left;
+  margin-left: 4px;
+}
+.add {
+  width: fit-content;
+  background-color: black;
+  color: white;
+  border-radius: 5em;
+  position: absolute;
+  bottom: 10;
+  align-content: center;
+  z-index: 1000;
 }

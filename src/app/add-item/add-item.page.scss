@@ -1,6 +1,7 @@
 .add_items {
   align-content: center;
   text-align: center;
+  margin: 0 auto;
 }
 
 .add_items ion-input {
@@ -8,4 +9,23 @@
 }
 .add_items ion-button {
   margin-top: 2em;
+}
+
+ion-item {
+  border: 1px solid black;
+  border-radius: 7px;
+  width: 80%;
+  height: fit-content;
+  align-content: center;
+  margin-top: 5px;
+  margin-left: 7%;
+}
+.add_button {
+  height: fit-content;
+}
+
+.add_tittle {
+  text-align: center;
+  font-weight: bold;
+  color: red;
 }

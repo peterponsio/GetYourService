@@ -6,5 +6,4 @@ export interface Users {
   mail: String;
   password: String;
   credits: Number;
-  Anouncements: Announcements;
 }

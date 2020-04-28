@@ -1,14 +1,27 @@
 import { Component, OnInit } from "@angular/core";
-
+import { ManageDataService } from "src/services/manage-data.service";
+import { AngularFirestore } from "@angular/fire/firestore";
 @Component({
   selector: "app-list",
   templateUrl: "./list.page.html",
   styleUrls: ["./list.page.scss"],
 })
 export class ListPage implements OnInit {
-  constructor() {}
+  constructor(private manage: ManageDataService) {}
 
-  ngOnInit() {}
+  listAnnouncements: any;
+
+  ngOnInit() {
+    this.manage
+      .GetListAnnouncements()
+      .then((data) => {
+        data.valueChanges().subscribe((res) => {
+          console.log(res);
+          this.listAnnouncements = res.reverse();
+        });
+      })
+      .catch();
+  }
 
   doRefresh(event) {
     console.log("Begin async operation");

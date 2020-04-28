@@ -1,19 +1,17 @@
-.container-Regis
-{
-    margin: 100 auto;
+.container-Regis {
+  margin: 100 auto;
 }
 
-.container-Regis ion-card
-{
-   margin-top: 3em;
+.container-Regis ion-card {
+  margin-top: 3em;
 }
 
-ion-card p{
-    text-align: center;
-    align-content: center;
-    font-weight: 700;
-    font-size: x-large;
-    font-family: sans-serif;
+ion-card p {
+  text-align: center;
+  align-content: center;
+  font-weight: 700;
+  font-size: x-large;
+  font-family: sans-serif;
 }
 
 // .logo_img img{
@@ -23,31 +21,45 @@ ion-card p{
 //     text-align: center;
 // }
 .logo_img {
-    margin: 0 auto;
-    align-content: center;
-    text-align: center;
-    height: 25em;
+  margin: 0 auto;
+  align-content: center;
+  text-align: center;
+  height: 25em;
 }
-div{
-    position: relative;
-    width: 100%;
-    height: 2em;
-    
-
+div {
+  position: relative;
+  width: 100%;
+  height: 2em;
 }
- a{
-     margin-top: 1em;
-    list-style: none;
-    text-decoration: none;
-    align-content: flex-end;
-    margin-right: 0;
-    position: absolute;
-    right: 1em;
-
+a {
+  margin-top: 1em;
+  list-style: none;
+  text-decoration: none;
+  align-content: flex-end;
+  margin-right: 0;
+  position: absolute;
+  right: 1em;
 }
- div ion-button{
-    text-align: center;
-    align-content: center;
-    margin-left: 40%;
+div ion-button {
+  text-align: center;
+  align-content: center;
+  margin-left: 40%;
+}
+.invalidField {
+  height: 1.6em;
 
+  border-radius: 2em;
+  color: black;
+  background-color: whitesmoke;
+  align-content: center;
+  text-align: center;
+}
+
+.infoIcon {
+  border: 2px solid red;
+  left: 0;
+  position: absolute;
+  margin-left: 5px;
+  border-radius: 5px;
+  margin-top: 1px;
 }
