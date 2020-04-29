@@ -1,6 +1,7 @@
 ion-searchbar {
   width: 90%;
-  height: 100%;
+  height: 90%;
+  border-radius: 2em;
 }
 
 .filter {
@@ -13,7 +14,7 @@ ion-searchbar {
   width: 10%;
 }
 .item_img {
-  height: fit-content;
+  height: 5em;
   width: 5em;
 }
 .info_items {
@@ -21,7 +22,6 @@ ion-searchbar {
   height: fit-content;
   font-size: x-small;
   margin-top: 0px;
-  margin-top: 0;
 }
 .info_items * {
   margin-top: 0px;
@@ -30,7 +30,7 @@ ion-searchbar {
 
 .item_buttons * {
   margin-left: 2em;
-  width: 7em;
+  width: 5em;
   margin-top: 0;
 }
 .like {

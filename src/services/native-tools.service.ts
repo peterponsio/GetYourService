@@ -17,7 +17,7 @@ export class NativeToolsService {
   optionsPicker = {
     // Android only. Max images to be selected, defaults to 15. If this is set to 1, upon
     // selection of a single image, the plugin will return it.
-    maximumImagesCount: 5,
+    maximumImagesCount: 1,
 
     // max width and height to allow the images to be.  Will keep aspect
     // ratio no matter what.  So if both are 800, the returned image
@@ -38,6 +38,7 @@ export class NativeToolsService {
   };
 
   async OpenGallery() {
+    alert("dsad");
     this.imagePicker.getPictures(this.optionsPicker).then(
       async (results) => {
         let base64Image = "data:image/jpeg;base64," + results;

@@ -90,8 +90,13 @@ export class AddItemPage implements OnInit {
       this.manage
         .AddAnnouncement(this.newAnnouncement)
         .then((res) => {
+          this.visual
+            .ModalImg(this.newAnnouncement)
+            .then()
+            .catch((err) => {
+              console.log(err);
+            });
           this.visual.ToastMensagge("Announcement Created");
-          this.visual.ModalImg(this.newAnnouncement);
         })
         .catch((err) => {
           console.log(err);
