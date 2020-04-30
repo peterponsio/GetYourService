@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Chats</ion-title>
+    <ion-title style="color: black; text-align: center; align-content: center;"
+      >Chats</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card class="Nochats" *ngIf="nochats">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <img src="./assets/gys/logo_transparent.png" alt="Announcement image" />
+      </ion-card-subtitle>
+      <ion-card-title>No mensagges yet</ion-card-title>
+      <ion-card-content>
+        Find a service in our services list
+      </ion-card-content>
+    </ion-card-header>
+  </ion-card>
+  <ion-card class="Nochats" *ngIf="chats">
+    <ion-card-header>
+      <ion-card-subtitle>
+        <img src="./assets/gys/logo_transparent.png" alt="Announcement image" />
+      </ion-card-subtitle>
+      <ion-card-title>No mensagges yet</ion-card-title>
+      <ion-card-content>
+        Find a service in our services list
+      </ion-card-content>
+    </ion-card-header>
+  </ion-card>
 </ion-content>
