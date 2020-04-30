@@ -79,6 +79,10 @@ const routes: Routes = [
     path: 'add-img',
     loadChildren: () => import('./add-img/add-img.module').then( m => m.AddImgPageModule)
   },
+  {
+    path: 'chats',
+    loadChildren: () => import('./chats/chats.module').then( m => m.ChatsPageModule)
+  },
 ];
 @NgModule({
   imports: [

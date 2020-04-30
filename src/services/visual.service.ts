@@ -74,7 +74,6 @@ export class VisualService {
   async ModalImg(Anoun: Announcements) {
     const modal = await this.modalController.create({
       component: AddImgPage,
-      swipeToClose: true,
     });
     modal.present();
 

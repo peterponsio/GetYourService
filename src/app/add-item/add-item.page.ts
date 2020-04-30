@@ -96,11 +96,12 @@ export class AddItemPage implements OnInit {
             .catch((err) => {
               console.log(err);
             });
-          this.visual.ToastMensagge("Announcement Created");
         })
         .catch((err) => {
           console.log(err);
         });
+
+      this.visual.ToastMensagge("Announcement Created");
     } else {
       this.visual.ToastMensagge("All the fields are obligatories");
     }

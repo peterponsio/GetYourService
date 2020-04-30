@@ -5,7 +5,6 @@ import {
 } from "@angular/fire/firestore";
 import { Users } from "src/interfaces/users";
 import { Announcements } from "src/interfaces/announcements";
-import { database } from "firebase";
 
 @Injectable({
   providedIn: "root",
@@ -46,6 +45,7 @@ export class ManageDataService {
           .set(newAnnouncement)
           .then((res) => {})
           .catch((err) => {});
+        // CAll modal to add imgs
       })
       .catch((err) => {});
   }

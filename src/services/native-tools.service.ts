@@ -37,8 +37,7 @@ export class NativeToolsService {
     outputType: 1,
   };
 
-  async OpenGallery() {
-    alert("dsad");
+  OpenGallery() {
     this.imagePicker.getPictures(this.optionsPicker).then(
       async (results) => {
         let base64Image = "data:image/jpeg;base64," + results;
