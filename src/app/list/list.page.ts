@@ -1,13 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { ManageDataService } from "src/services/manage-data.service";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { NativeToolsService } from "src/services/native-tools.service";
+import { Announcements } from "src/interfaces/announcements";
 @Component({
   selector: "app-list",
   templateUrl: "./list.page.html",
   styleUrls: ["./list.page.scss"],
 })
 export class ListPage implements OnInit {
-  constructor(private manage: ManageDataService) {}
+  constructor(
+    private manage: ManageDataService,
+    private native: NativeToolsService
+  ) {}
 
   listAnnouncements: any;
 
@@ -34,7 +39,6 @@ export class ListPage implements OnInit {
 
   loadData(event) {
     setTimeout(() => {
-      console.log("Done");
       event.target.complete();
 
       // App logic to determine if all data is loaded
@@ -47,4 +51,14 @@ export class ListPage implements OnInit {
   FilterItems() {
     console.log("asdasd");
   }
+  ///////CAll client///////////////////////
+  Call(item: Announcements) {
+    this.native.CallClient(item);
+  }
+
+  /////Text Client////////////////////////77
+  Text() {
+    alert("dasdad");
+  }
+  MakeFav(item: Announcements) {}
 }

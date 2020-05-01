@@ -58,7 +58,6 @@ export class AddImgPage implements OnInit {
   };
 
   OpenGallery() {
-    alert("dasd");
     this.imagePicker.getPictures(this.optionsPicker).then(
       async (results) => {
         let base64Image = "data:image/jpeg;base64," + results;

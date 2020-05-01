@@ -1,7 +1,12 @@
 ion-searchbar {
-  width: 90%;
-  height: 90%;
-  border-radius: 2em;
+  width: 87%;
+  height: 70%;
+  border-radius: 10px;
+}
+
+.tools {
+  border-radius: 10em;
+  height: fit-content;
 }
 
 .filter {
@@ -13,8 +18,21 @@ ion-searchbar {
   height: 100%;
   width: 10%;
 }
+
+.items ion-item {
+  align-content: center;
+  margin: 0 auto;
+  margin-top: 0.8em;
+}
+
+.item {
+  width: 95%;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
 .item_img {
-  height: 5em;
+  height: 5.5em;
   width: 5em;
 }
 .info_items {
@@ -32,32 +50,18 @@ ion-searchbar {
   margin-left: 2em;
   width: 5em;
   margin-top: 0;
+  font-size: x-small;
 }
 .like {
   position: absolute;
   top: 2em;
   right: 2em;
   z-index: 1000;
-  height: 2em;
-  width: 2em;
+  height: 1.8em;
+  width: 1.8em;
 }
 
-.item {
-  border: 1px solid grey;
-  border-radius: 1em;
-  height: fit-content;
-}
 .more_info * {
   float: left;
   margin-left: 4px;
-}
-.add {
-  width: fit-content;
-  background-color: black;
-  color: white;
-  border-radius: 5em;
-  position: absolute;
-  bottom: 10;
-  align-content: center;
-  z-index: 1000;
 }

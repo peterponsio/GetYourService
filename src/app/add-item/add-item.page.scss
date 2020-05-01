@@ -12,13 +12,11 @@
 }
 
 ion-item {
-  border: 1px solid black;
   border-radius: 7px;
   width: 80%;
   height: fit-content;
   align-content: center;
   margin-top: 5px;
-  margin-left: 7%;
 }
 .add_button {
   height: fit-content;
@@ -27,5 +25,11 @@ ion-item {
 .add_tittle {
   text-align: center;
   font-weight: bold;
-  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: black;
+}
+
+ion-card ion-item {
+  align-content: center;
+  margin: 0 auto;
 }

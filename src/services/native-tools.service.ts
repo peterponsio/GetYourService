@@ -3,6 +3,8 @@ import { ImagePicker } from "@ionic-native/image-picker/ngx";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
+import { CallNumber } from "@ionic-native/call-number/ngx";
+import { Announcements } from "src/interfaces/announcements";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +13,8 @@ export class NativeToolsService {
   constructor(
     private imagePicker: ImagePicker,
     private storage: AngularFireStorage,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private callNumber: CallNumber
   ) {}
 
   optionsPicker = {
@@ -61,5 +64,12 @@ export class NativeToolsService {
         alert(err);
       }
     );
+  }
+
+  CallClient(item: Announcements) {
+    this.callNumber
+      .callNumber(item.userPhone, true)
+      .then((res) => {})
+      .catch((err) => console.log("Error launching dialer", err));
   }
 }

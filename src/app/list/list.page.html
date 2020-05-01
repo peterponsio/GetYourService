@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <div class="tools">
+  <ion-toolbar class="tools">
+    <div>
       <ion-searchbar showCancelButton="focus"></ion-searchbar>
       <ion-icon
         name="options-outline"
@@ -23,12 +23,9 @@
   </ion-refresher>
 
   <!--  -->
-  <ion-list>
-    <ion-item-sliding
-      class="item"
-      *ngFor="let announcement of listAnnouncements"
-    >
-      <ion-item>
+  <ion-list class="items">
+    <ion-item-sliding *ngFor="let announcement of listAnnouncements">
+      <ion-item class="item">
         <img
           class="item_img"
           src="./assets/gys/logo_transparent.png"
@@ -38,7 +35,7 @@
           <ion-row>
             <div class="info_items">
               <h6>{{announcement.tittle}}</h6>
-              <h6>{{announcement.price}} €</h6>
+              <p>{{announcement.price}} €</p>
               <p>{{announcement.description}}</p>
               <span class="more_info">
                 <p>Categorie : {{announcement.categorie}}</p>
@@ -49,7 +46,7 @@
             <ion-icon class="like" name="heart-outline"></ion-icon>
           </ion-row>
           <ion-row class="item_buttons">
-            <ion-button (click)="Call()" color="dark">
+            <ion-button (click)="Call(announcement)" color="dark">
               Call
             </ion-button>
             <ion-button (click)="Text()" color="dark">

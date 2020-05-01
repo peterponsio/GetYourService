@@ -5,9 +5,11 @@ export interface Announcements {
   price: Number;
   description: String;
   Location: String;
+  creationDate: number;
+  userId: String;
   userName: String;
   userMail: String;
-  userPhone: number;
+  userPhone: string;
   Img: String;
   fav: Boolean;
   reports: number;

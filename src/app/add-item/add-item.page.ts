@@ -23,6 +23,7 @@ export class AddItemPage implements OnInit {
   userName: string;
   userEmail: string;
   telephone: number;
+  userId: string;
 
   constructor(
     private visual: VisualService,
@@ -36,7 +37,6 @@ export class AddItemPage implements OnInit {
   ngOnInit() {}
 
   customPopoverOptions: any = {
-    header: "Categorie",
     subHeader: "Select your categorie",
     message: "Only select one categorie",
   };
@@ -46,9 +46,11 @@ export class AddItemPage implements OnInit {
     tittle: "",
     categorie: "",
     price: 0,
+    creationDate: 0,
     userMail: "",
     userName: "",
-    userPhone: 0,
+    userPhone: "",
+    userId: "",
     description: "",
     Location: "",
     Img: "",
@@ -59,6 +61,7 @@ export class AddItemPage implements OnInit {
   //Call to a db method to add a new announcement Also check all the inputs are valids
 
   onClickAddAnnouncement() {
+    let date = new Date();
     this.newAnnouncement.tittle = this.announcement;
     this.newAnnouncement.categorie = this.categorie;
     this.newAnnouncement.price = this.price;
@@ -66,7 +69,9 @@ export class AddItemPage implements OnInit {
     this.newAnnouncement.Location = this.location;
     this.newAnnouncement.userMail = this.userEmail;
     this.newAnnouncement.userName = this.userName;
-    this.newAnnouncement.userPhone = this.telephone;
+    this.newAnnouncement.userPhone = this.telephone.toString();
+    this.newAnnouncement.userId = sessionStorage.getItem("user");
+    this.newAnnouncement.creationDate = date.getDate();
 
     if (
       this.newAnnouncement.tittle != "" &&
@@ -83,9 +88,9 @@ export class AddItemPage implements OnInit {
       this.newAnnouncement.userMail != undefined &&
       this.newAnnouncement.userName != "" &&
       this.newAnnouncement.userName != undefined &&
-      this.newAnnouncement.userPhone != 0 &&
+      this.newAnnouncement.userPhone != "" &&
       this.newAnnouncement.userPhone != undefined &&
-      this.newAnnouncement.userPhone.toString().length >= 6
+      this.newAnnouncement.userPhone.toString().length >= 7
     ) {
       this.manage
         .AddAnnouncement(this.newAnnouncement)

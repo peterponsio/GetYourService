@@ -10,6 +10,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AngularFireModule } from "@angular/fire";
 import { ImagePicker } from "@ionic-native/image-picker/ngx";
+import { CallNumber } from "@ionic-native/call-number/ngx";
+
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -37,6 +39,7 @@ import { from } from "rxjs";
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ImagePicker,
+    CallNumber,
     AngularFireStorage,
   ],
   bootstrap: [AppComponent],
