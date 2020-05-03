@@ -15,7 +15,8 @@ import { ManageDataService } from "./manage-data.service";
 export class AutenticationService {
   constructor(
     private aut: AngularFireAuth,
-    private manage: ManageDataService
+    private manage: ManageDataService,
+    private router: Router
   ) {}
 
   ////Interface USERS///
@@ -41,6 +42,7 @@ export class AutenticationService {
       .createUserWithEmailAndPassword(user.mail, user.password)
       .then((res) => {
         sessionStorage.setItem("user", res.user.uid);
+        sessionStorage.setItem("userInfo", JSON.stringify(user));
         this.newUser.id = res.user.uid;
         this.newUser.mail = user.mail;
         this.newUser.name = user.name;
@@ -59,6 +61,7 @@ export class AutenticationService {
       .signInWithEmailAndPassword(user.mail, user.password)
       .then((res) => {
         sessionStorage.setItem("user", res.user.uid);
+        sessionStorage.setItem("userInfo", JSON.stringify(user));
       })
       .catch((err) => {
         throw err;
@@ -72,5 +75,17 @@ export class AutenticationService {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  /////// CLose session/////////////////////////
+
+  async CloseSesion() {
+    this.aut.auth.signOut();
+
+    sessionStorage.clear();
+
+    sessionStorage.removeItem("user");
+
+    this.router.navigateByUrl("login");
   }
 }

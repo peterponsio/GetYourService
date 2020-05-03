@@ -24,13 +24,25 @@
 
   <!--  -->
   <ion-list class="items">
-    <ion-item-sliding *ngFor="let announcement of listAnnouncements">
-      <ion-item class="item">
-        <img
+    <ion-item-sliding
+      class="slide"
+      *ngFor="let announcement of listAnnouncements;let i=index"
+    >
+      <ion-item class="item" *ngIf="currentUser!=announcement.userId">
+        <ion-img
+          *ngIf="announcement.Img=='defaultImg.png'"
           class="item_img"
           src="./assets/gys/logo_transparent.png"
           alt="Announcement image"
-        />
+        >
+        </ion-img>
+        <ion-img
+          *ngIf="announcement.Img!='defaultImg.png'"
+          class="item_img"
+          [src]="announcement.Img"
+          alt="Announcement image"
+        >
+        </ion-img>
         <ion-grid fixed>
           <ion-row>
             <div class="info_items">
@@ -43,19 +55,30 @@
               </span>
             </div>
 
-            <ion-icon class="like" name="heart-outline"></ion-icon>
+            <ion-icon
+              *ngIf="!announcement.fav"
+              class="like"
+              name="heart-outline"
+              (click)="MakeFav(announcement,i)"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="announcement.fav"
+              class="like"
+              name="heart"
+              (click)="UnFav(announcement,i)"
+            ></ion-icon>
           </ion-row>
           <ion-row class="item_buttons">
             <ion-button (click)="Call(announcement)" color="dark">
               Call
             </ion-button>
-            <ion-button (click)="Text()" color="dark">
+            <ion-button (click)="Text(announcement)" color="dark">
               Text
             </ion-button>
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item-options side="end">
+      <ion-item-options side="end" class="report">
         <ion-item-option (click)="Report(item)" color="danger"
           >Report</ion-item-option
         >

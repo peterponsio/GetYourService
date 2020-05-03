@@ -64,11 +64,7 @@ export class LoginPage implements OnInit {
       this.inputMail === null ||
       this.inputMail === "" ||
       !this.inputMail.includes("@") ||
-      !this.inputMail.includes(".") ||
-      !this.inputMail.includes("gmail") ||
-      !this.inputMail.includes("hotmail") ||
-      !this.inputMail.includes("outlook") ||
-      !this.inputMail.includes("solvam")
+      !this.inputMail.includes(".")
     ) {
       this.inputMailInvalid = true;
       this.inputPasswordInvalid = false;

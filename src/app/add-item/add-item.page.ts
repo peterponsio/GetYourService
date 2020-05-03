@@ -53,7 +53,7 @@ export class AddItemPage implements OnInit {
     userId: "",
     description: "",
     Location: "",
-    Img: "",
+    Img: "defaultImg.png",
     fav: false,
     reports: 0,
   };
@@ -71,7 +71,10 @@ export class AddItemPage implements OnInit {
     this.newAnnouncement.userName = this.userName;
     this.newAnnouncement.userPhone = this.telephone.toString();
     this.newAnnouncement.userId = sessionStorage.getItem("user");
-    this.newAnnouncement.creationDate = date.getDate();
+    this.newAnnouncement.creationDate =
+      date.getDate() + date.getMonth() + date.getFullYear();
+
+    this.newAnnouncement.Img = "defaultImg.png";
 
     if (
       this.newAnnouncement.tittle != "" &&
@@ -86,11 +89,12 @@ export class AddItemPage implements OnInit {
       this.newAnnouncement.Location != undefined &&
       this.newAnnouncement.userMail != "" &&
       this.newAnnouncement.userMail != undefined &&
+      this.newAnnouncement.userMail.includes("@") &&
+      this.newAnnouncement.userMail.includes(".") &&
       this.newAnnouncement.userName != "" &&
       this.newAnnouncement.userName != undefined &&
       this.newAnnouncement.userPhone != "" &&
-      this.newAnnouncement.userPhone != undefined &&
-      this.newAnnouncement.userPhone.toString().length >= 7
+      this.newAnnouncement.userPhone != undefined
     ) {
       this.manage
         .AddAnnouncement(this.newAnnouncement)

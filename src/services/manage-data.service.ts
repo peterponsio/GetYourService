@@ -27,7 +27,7 @@ export class ManageDataService {
   async AddAnnouncement(newAnnouncement: Announcements) {
     let idAnnouncement = this.db.createId();
     newAnnouncement.id = idAnnouncement;
-    newAnnouncement.Img = "deafault.jpeg";
+    // newAnnouncement.Img = "deafault.jpeg";
 
     ///Create the announcement inside the specific user than created
     this.db
@@ -50,10 +50,60 @@ export class ManageDataService {
       .catch((err) => {});
   }
 
+  //ANNCOUNCEMNETS LIST PROMISE
+
   async GetListAnnouncements() {
     let data: AngularFirestoreCollection = this.db.collection<Announcements>(
       "Announcements"
     );
     return data;
+  }
+
+  ///////////////MAKE A FAVS COLLECTION
+
+  async AddFavAnnouncement(item: Announcements) {
+    this.db
+      .doc("Users/" + sessionStorage.getItem("user") + "/Favorites/" + item.id)
+      .set(item)
+      .then((res) => {})
+      .catch((err) => {
+        alert("Exploto");
+      });
+  }
+  ////////////////REmove from favorites
+  async RemoveFavorite(item: Announcements) {
+    this.db
+      .doc("Users/" + sessionStorage.getItem("user") + "/Favorites/" + item.id)
+      .delete()
+      .then((res) => {})
+      .catch((err) => {
+        alert("Exploto");
+      });
+  }
+
+  //Get Favorites LIST
+
+  async GetListFavorites() {
+    let data: AngularFirestoreCollection = this.db.collection<Announcements>(
+      "Users/" + sessionStorage.getItem("user") + "/Favorites"
+    );
+    return data;
+  }
+
+  ///// Chat Sessions
+
+  async CreateChatSession(item: Announcements) {
+    let currentUser = JSON.parse(sessionStorage.getItem("userInfo"));
+    let session = currentUser.mail;
+    this.db
+      .doc(
+        "Users/" +
+          sessionStorage.getItem("user") +
+          "/Chats/" +
+          item.userMail +
+          "-" +
+          session
+      )
+      .set(item);
   }
 }

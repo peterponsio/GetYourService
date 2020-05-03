@@ -65,7 +65,7 @@ export class VisualService {
     const toast = await this.toastController.create({
       header: mens,
 
-      duration: 2000,
+      duration: 1500,
     });
 
     toast.present();
@@ -73,6 +73,7 @@ export class VisualService {
 
   async ModalImg(Anoun: Announcements) {
     const modal = await this.modalController.create({
+      componentProps: { obj: Anoun },
       component: AddImgPage,
     });
     modal.present();

@@ -40,7 +40,7 @@ export class NativeToolsService {
     outputType: 1,
   };
 
-  OpenGallery() {
+  OpenGallery(item: Announcements) {
     this.imagePicker.getPictures(this.optionsPicker).then(
       async (results) => {
         let base64Image = "data:image/jpeg;base64," + results;
@@ -54,7 +54,22 @@ export class NativeToolsService {
           .pipe(
             finalize(() => {
               fileRef.getDownloadURL().subscribe((url) => {
-                localStorage.setItem("url", url);
+                // localStorage.setItem("url", url);
+
+                item.Img = url;
+
+                //Update IMG IN THE ANNOUNCDMENTS OF USERS
+                this.db
+                  .doc(
+                    "/Users/" +
+                      sessionStorage.getItem("user") +
+                      "/Announcements/" +
+                      item.id
+                  )
+                  .update(item);
+                //////Update IMG IN GENEREAL ANNOUNCEMENTS
+                this.db.doc("/Announcements/" + item.id).update(item);
+                alert(url);
               });
             })
           )

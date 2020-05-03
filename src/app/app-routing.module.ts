@@ -83,6 +83,10 @@ const routes: Routes = [
     path: 'chats',
     loadChildren: () => import('./chats/chats.module').then( m => m.ChatsPageModule)
   },
+  {
+    path: 'item-info',
+    loadChildren: () => import('./item-info/item-info.module').then( m => m.ItemInfoPageModule)
+  },
 ];
 @NgModule({
   imports: [
