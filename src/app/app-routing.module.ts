@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'item-info',
     loadChildren: () => import('./item-info/item-info.module').then( m => m.ItemInfoPageModule)
   },
+  {
+    path: 'my-announcements',
+    loadChildren: () => import('./my-announcements/my-announcements.module').then( m => m.MyAnnouncementsPageModule)
+  },
 ];
 @NgModule({
   imports: [

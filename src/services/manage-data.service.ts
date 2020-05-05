@@ -10,6 +10,9 @@ import { Announcements } from "src/interfaces/announcements";
   providedIn: "root",
 })
 export class ManageDataService {
+  listFavs: any;
+  ListAnnouncements: any;
+
   constructor(private db: AngularFirestore) {}
 
   /////////Method to create a newUser in the database ///////////////
@@ -105,5 +108,63 @@ export class ManageDataService {
           session
       )
       .set(item);
+  }
+
+  ///Clear all favs
+  async DeleteFavorites() {
+    this.GetListFavorites().then((data) => {
+      data.valueChanges().subscribe((res) => {
+        this.listFavs = res;
+        this.listFavs.forEach((element) => {
+          this.db
+            .doc(
+              "Users/" +
+                sessionStorage.getItem("user") +
+                "/Favorites/" +
+                element.id
+            )
+            .delete();
+        });
+      });
+    });
+  }
+
+  /////Delete all the specific user announcements
+  async DeleteMyAnnouncements() {
+    this.GetMyAnnouncements().then((data) => {
+      data.valueChanges().subscribe((res) => {
+        this.ListAnnouncements = res;
+        this.ListAnnouncements.forEach((element) => {
+          this.db
+            .doc(
+              "Users/" +
+                sessionStorage.getItem("user") +
+                "/Announcements/" +
+                element.id
+            )
+            .delete();
+          this.db.doc("/Announcements/" + element.id).delete();
+        });
+      });
+    });
+  }
+  //Delete 1 Announcement
+  async DeleteOneAnnouncement(item: Announcements) {
+    //Delete for all
+    this.db.doc("/Announcements/" + item.id).delete();
+    //Delete for the user
+    this.db
+      .doc(
+        "Users/" + sessionStorage.getItem("user") + "/Announcements/" + item.id
+      )
+      .delete();
+  }
+
+  ////Get announcements of a specific  user
+  async GetMyAnnouncements() {
+    let data: AngularFirestoreCollection = this.db.collection<Announcements>(
+      "Users/" + sessionStorage.getItem("user") + "/Announcements"
+    );
+    return data;
   }
 }

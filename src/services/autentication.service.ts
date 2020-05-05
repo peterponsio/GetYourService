@@ -86,6 +86,6 @@ export class AutenticationService {
 
     sessionStorage.removeItem("user");
 
-    this.router.navigateByUrl("login");
+    this.router.navigateByUrl("/");
   }
 }

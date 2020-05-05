@@ -21,6 +21,9 @@ export class RegisterPage implements OnInit {
   inputTermsInvalid: Boolean;
   errorMensg: string;
 
+  seePasswd: boolean;
+  type: string;
+
   constructor(
     private navigate: Router,
     private autentication: AutenticationService,
@@ -29,6 +32,8 @@ export class RegisterPage implements OnInit {
     this.inputNameInvalid = false;
     this.inputMailInvalid = false;
     this.inputPasswordInvalid = false;
+    this.seePasswd = false;
+    this.type = "password";
   }
 
   ////Interface USERS///
@@ -108,6 +113,14 @@ export class RegisterPage implements OnInit {
       this.inputPasswordInvalid = false;
       this.inputNameInvalid = false;
       this.inputTermsInvalid = true;
+    }
+  }
+  onClickSeePass() {
+    this.seePasswd = !this.seePasswd;
+    if (this.seePasswd) {
+      this.type = "text";
+    } else {
+      this.type = "password";
     }
   }
 }

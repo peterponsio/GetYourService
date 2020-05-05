@@ -24,7 +24,21 @@
         <span>Mail Invalid</span>
       </div>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="inputPassword"></ion-input>
+      <ion-input type="{{type}}" [(ngModel)]="inputPassword"></ion-input>
+      <ion-icon
+        *ngIf="seePasswd"
+        name="eye-off-outline"
+        slot="end"
+        class="seepass"
+        (click)="onClickSeePass()"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="!seePasswd"
+        name="eye-outline"
+        slot="end"
+        class="seepass"
+        (click)="onClickSeePass()"
+      ></ion-icon>
       <div *ngIf="inputPasswordInvalid" class="invalidField">
         <ion-icon class="infoIcon" name="information-outline"></ion-icon>
         <span>Password Invalid</span>

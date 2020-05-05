@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AutenticationService } from "src/services/autentication.service";
 import { VisualService } from "src/services/visual.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-account",
@@ -13,7 +14,8 @@ export class AccountPage implements OnInit {
 
   constructor(
     private autenticacion: AutenticationService,
-    private visual: VisualService
+    private visual: VisualService,
+    private router: Router
   ) {
     this.userMail = "";
     this.userName = "";
@@ -33,5 +35,16 @@ export class AccountPage implements OnInit {
     this.autenticacion.CloseSesion().then((res) => {
       this.visual.ToastMensagge("Sesion Closed");
     });
+  }
+  onClickMyAnnoncements() {
+    this.router.navigateByUrl("my-announcements");
+  }
+
+  onClickMyFavorites() {
+    this.router.navigateByUrl("my-favorites");
+  }
+
+  onClickSettings() {
+    this.router.navigateByUrl("settings");
   }
 }

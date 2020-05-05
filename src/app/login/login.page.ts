@@ -17,6 +17,9 @@ export class LoginPage implements OnInit {
   inputMailInvalid: Boolean;
   inputPasswordInvalid: Boolean;
 
+  seePasswd: boolean;
+  type: string;
+
   constructor(
     private navigate: Router,
     private autentication: AutenticationService,
@@ -24,6 +27,8 @@ export class LoginPage implements OnInit {
   ) {
     this.inputMailInvalid = false;
     this.inputPasswordInvalid = false;
+    this.seePasswd = false;
+    this.type = "password";
   }
 
   ngOnInit() {}
@@ -78,7 +83,16 @@ export class LoginPage implements OnInit {
     }
   }
 
+  onClickSeePass() {
+    this.seePasswd = !this.seePasswd;
+    if (this.seePasswd) {
+      this.type = "text";
+    } else {
+      this.type = "password";
+    }
+  }
+
   onClickForgot() {
-    this.visual.AlertMens("Forgot passwrd").then((res) => {});
+    this.visual.AlertMens("Mail Recover").then((res) => {});
   }
 }

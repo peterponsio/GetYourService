@@ -63,3 +63,11 @@ div ion-button {
   border-radius: 5px;
   margin-top: 1px;
 }
+.seepass {
+  position: absolute;
+  right: 1em;
+  height: 2em;
+  width: 2em;
+  z-index: 1000;
+  bottom: 2.5em;
+}

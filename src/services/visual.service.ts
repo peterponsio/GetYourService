@@ -10,6 +10,8 @@ import {
   ModalController,
 } from "@ionic/angular";
 import { AutenticationService } from "./autentication.service";
+import { single } from "rxjs/operators";
+import { ManageDataService } from "./manage-data.service";
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +22,8 @@ export class VisualService {
     private alertController: AlertController,
     private autentication: AutenticationService,
     private toastController: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private manage: ManageDataService
   ) {}
 
   // async presentPopover(mensage: String) {
@@ -84,5 +87,84 @@ export class VisualService {
 
   async ModalImgClose() {
     this.modalController.dismiss();
+  }
+  ////Alert to delete all the favs list
+  async AlertSure() {
+    const alert = await this.alertController.create({
+      header: "Are you sure? ",
+
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: () => {
+            this.manage.DeleteFavorites().then((res) => {
+              this.ToastMensagge("All favorites deleted");
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+  ////Delete all the loged user announcements
+  async AlertDeleteMyAnnouncements() {
+    const alert = await this.alertController.create({
+      header: "Are you sure? ",
+
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: () => {
+            this.manage.DeleteMyAnnouncements().then((res) => {
+              this.ToastMensagge("All you announcements deleted");
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+
+  ////Delete One of  the loged user announcement
+  async AlertDeleteOneAnnouncement(item: Announcements) {
+    const alert = await this.alertController.create({
+      header: "Are you sure? ",
+
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: () => {
+            this.manage.DeleteOneAnnouncement(item).then((res) => {
+              this.ToastMensagge("announcement deleted");
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
   }
 }

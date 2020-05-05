@@ -22,7 +22,7 @@ export class AddItemPage implements OnInit {
   location: string;
   userName: string;
   userEmail: string;
-  telephone: number;
+  telephone: string;
   userId: string;
 
   constructor(
@@ -62,6 +62,7 @@ export class AddItemPage implements OnInit {
 
   onClickAddAnnouncement() {
     let date = new Date();
+    this.newAnnouncement.userPhone = this.telephone;
     this.newAnnouncement.tittle = this.announcement;
     this.newAnnouncement.categorie = this.categorie;
     this.newAnnouncement.price = this.price;
@@ -69,8 +70,9 @@ export class AddItemPage implements OnInit {
     this.newAnnouncement.Location = this.location;
     this.newAnnouncement.userMail = this.userEmail;
     this.newAnnouncement.userName = this.userName;
-    this.newAnnouncement.userPhone = this.telephone.toString();
+
     this.newAnnouncement.userId = sessionStorage.getItem("user");
+
     this.newAnnouncement.creationDate =
       date.getDate() + date.getMonth() + date.getFullYear();
 

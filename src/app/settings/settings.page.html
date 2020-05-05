@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Settings</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div *ngIf="!dm">
+    Dark Mode<ion-toggle (click)="onClickDarkMode()"></ion-toggle>
+  </div>
 
+  <div *ngIf="dm">
+    Turn on Lights<ion-toggle (click)="onClickDarkMode()"></ion-toggle>
+  </div>
 </ion-content>
