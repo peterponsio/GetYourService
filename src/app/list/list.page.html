@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar class="tools">
     <div>
-      <ion-searchbar showCancelButton="focus"></ion-searchbar>
+      <ion-searchbar
+        (ionChange)="FilterItems($event)"
+        showCancelButton="focus"
+        [(ngModel)]="search"
+      ></ion-searchbar>
       <ion-icon
         name="options-outline"
         class="filter"

@@ -91,6 +91,10 @@ const routes: Routes = [
     path: 'my-announcements',
     loadChildren: () => import('./my-announcements/my-announcements.module').then( m => m.MyAnnouncementsPageModule)
   },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
+  },
 ];
 @NgModule({
   imports: [

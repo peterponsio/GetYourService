@@ -53,6 +53,13 @@ export class ManageDataService {
       .catch((err) => {});
   }
 
+  //////Get loged user Data/////
+
+  async getUserLogedData(id: string) {
+    let data = this.db.collection<Users>("Users").doc(id);
+    return data;
+  }
+
   //ANNCOUNCEMNETS LIST PROMISE
 
   async GetListAnnouncements() {

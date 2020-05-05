@@ -61,7 +61,11 @@ export class AutenticationService {
       .signInWithEmailAndPassword(user.mail, user.password)
       .then((res) => {
         sessionStorage.setItem("user", res.user.uid);
-        sessionStorage.setItem("userInfo", JSON.stringify(user));
+        this.manage.getUserLogedData(res.user.uid).then((data) => {
+          data.valueChanges().subscribe((res) => {
+            sessionStorage.setItem("userInfo", JSON.stringify(res));
+          });
+        });
       })
       .catch((err) => {
         throw err;

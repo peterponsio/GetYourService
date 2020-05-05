@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
       this.inputPassword !== undefined &&
       this.inputPassword.length >= 6
     ) {
-      this.user.mail = this.inputMail;
+      this.user.name = this.user.mail = this.inputMail;
       this.user.password = this.inputPassword;
       this.autentication
         .SingIn(this.user)

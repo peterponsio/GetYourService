@@ -23,8 +23,13 @@ export class ListPage implements OnInit {
     this.currentUser = sessionStorage.getItem("user");
   }
 
-  listAnnouncements: any;
   listFavs: any;
+
+  listOriginalAnnouncements: any;
+  listAnnouncements: any;
+  listFilter: any;
+
+  search: string;
 
   ///Use on init to get all the data from firebase
   ngOnInit() {
@@ -48,6 +53,8 @@ export class ListPage implements OnInit {
       .then((data) => {
         data.valueChanges().subscribe((res) => {
           this.listAnnouncements = res.reverse();
+          //////Array copy to filter//////////
+          this.listOriginalAnnouncements = res.reverse();
         });
       })
       .catch();
@@ -65,11 +72,17 @@ export class ListPage implements OnInit {
                 }
               });
             });
+            this.listOriginalAnnouncements.forEach((announcement) => {
+              this.listFavs.forEach((favorites) => {
+                if (favorites.id == announcement.id) {
+                  announcement.fav = true;
+                }
+              });
+            });
           }
         });
       })
       .catch();
-    //COmpare normal array with favs array ////////
 
     ///Get current user
     this.currentUser = sessionStorage.getItem("user");
@@ -96,7 +109,23 @@ export class ListPage implements OnInit {
   ////Method to open the filter modal and recover data
 
   FilterItems() {
-    console.log("asdasd");
+    if (
+      this.search === "" ||
+      this.search == undefined ||
+      this.search.length == 0
+    ) {
+      console.log("entro");
+      this.listAnnouncements = this.listOriginalAnnouncements;
+    }
+    if (this.search != "") {
+      this.listFilter = this.listAnnouncements.filter(
+        (element) =>
+          element.tittle.includes(this.search) ||
+          element.categorie.includes(this.search) ||
+          element.Location.includes(this.search)
+      );
+      this.listAnnouncements = this.listFilter;
+    }
   }
   ///////CAll client///////////////////////
   Call(item: Announcements) {
