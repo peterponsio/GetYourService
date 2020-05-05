@@ -1,6 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="add_tittle">Add Your Announcement</ion-title>
+    <ion-icon
+      slot="end"
+      class="close"
+      name="close-outline"
+      (click)="onClickCloseModal()"
+    ></ion-icon>
+    <ion-title class="add_tittle">Edit Announcement</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +17,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item>
-        <ion-label position="floating">Announcement</ion-label>
+        <ion-label position="floating">Announcement Tittle</ion-label>
         <ion-input
           type="text"
           [(ngModel)]="announcement"
@@ -30,7 +36,8 @@
           <ion-select-option
             *ngFor="let categorie of listCategories"
             [value]="categorie.categorie"
-            >{{categorie.categorie}}
+          >
+            {{categorie.categorie}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -103,9 +110,9 @@
   </ion-card>
 
   <ion-card class="add_button">
-    <ion-button (click)="onClickAddAnnouncement()" color="dark" expand="block">
+    <ion-button (click)="onClickEditAnnouncement()" color="dark" expand="block">
       <ion-icon slot="start" name="add"></ion-icon>
-      Publish
+      Edit
     </ion-button>
   </ion-card>
 </ion-content>

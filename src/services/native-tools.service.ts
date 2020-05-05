@@ -5,6 +5,7 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Announcements } from "src/interfaces/announcements";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,8 @@ export class NativeToolsService {
     private imagePicker: ImagePicker,
     private storage: AngularFireStorage,
     private db: AngularFirestore,
-    private callNumber: CallNumber
+    private callNumber: CallNumber,
+    private geolocation: Geolocation
   ) {}
 
   optionsPicker = {
@@ -69,7 +71,6 @@ export class NativeToolsService {
                   .update(item);
                 //////Update IMG IN GENEREAL ANNOUNCEMENTS
                 this.db.doc("/Announcements/" + item.id).update(item);
-                alert(url);
               });
             })
           )
@@ -80,11 +81,25 @@ export class NativeToolsService {
       }
     );
   }
+  ///CAll announcement user
 
   CallClient(item: Announcements) {
     this.callNumber
       .callNumber(item.userPhone, true)
       .then((res) => {})
       .catch((err) => console.log("Error launching dialer", err));
+  }
+
+  // Get Current Location of user //////
+
+  GetCurrentLocation() {
+    this.geolocation
+      .getCurrentPosition()
+      .then((res) => {
+        alert(res.coords);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 }

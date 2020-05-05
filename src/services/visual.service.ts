@@ -12,6 +12,7 @@ import {
 import { AutenticationService } from "./autentication.service";
 import { single } from "rxjs/operators";
 import { ManageDataService } from "./manage-data.service";
+import { EditAnnouncementPage } from "src/app/edit-announcement/edit-announcement.page";
 
 @Injectable({
   providedIn: "root",
@@ -166,5 +167,22 @@ export class VisualService {
       ],
     });
     alert.present();
+  }
+
+  ////Edit announcements MODAL
+
+  async ModalEdit(Anoun: Announcements) {
+    const modal = await this.modalController.create({
+      componentProps: { obj: Anoun },
+      component: EditAnnouncementPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
+  }
+
+  async ModalEditClose() {
+    this.modalController.dismiss();
   }
 }

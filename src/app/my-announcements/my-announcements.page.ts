@@ -41,6 +41,10 @@ export class MyAnnouncementsPage implements OnInit {
     this.visual.AlertDeleteOneAnnouncement(item);
   }
 
+  Edit(item: Announcements) {
+    this.visual.ModalEdit(item).then((res) => {});
+  }
+
   doRefresh(event) {
     console.log("Begin async operation");
 

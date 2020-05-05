@@ -1,19 +1,20 @@
 import { Component, OnInit } from "@angular/core";
+import { Announcements } from "src/interfaces/announcements";
 import { Cities } from "../consts/cities.js";
 import { Categories } from "../consts/categories.js";
-import { Announcements } from "src/interfaces/announcements.js";
 import { VisualService } from "src/services/visual.service.js";
 import { ManageDataService } from "src/services/manage-data.service.js";
 import { NativeToolsService } from "src/services/native-tools.service.js";
 
 @Component({
-  selector: "app-add-item",
-  templateUrl: "./add-item.page.html",
-  styleUrls: ["./add-item.page.scss"],
+  selector: "app-edit-announcement",
+  templateUrl: "./edit-announcement.page.html",
+  styleUrls: ["./edit-announcement.page.scss"],
 })
-export class AddItemPage implements OnInit {
+export class EditAnnouncementPage implements OnInit {
   listCities: any;
   listCategories: any;
+  obj;
 
   ///All the ngModels variables ////
   announcement: string;
@@ -62,8 +63,9 @@ export class AddItemPage implements OnInit {
 
   //Call to a db method to add a new announcement Also check all the inputs are valids
 
-  onClickAddAnnouncement() {
+  onClickEditAnnouncement() {
     let date = new Date();
+    this.newAnnouncement.id = this.obj.id;
     this.newAnnouncement.userPhone = this.telephone;
     this.newAnnouncement.tittle = this.announcement;
     this.newAnnouncement.categorie = this.categorie;
@@ -101,7 +103,7 @@ export class AddItemPage implements OnInit {
       this.newAnnouncement.userPhone != undefined
     ) {
       this.manage
-        .AddAnnouncement(this.newAnnouncement)
+        .EditAnnouncement(this.newAnnouncement)
         .then((res) => {
           this.visual
             .ModalImg(this.newAnnouncement)
@@ -114,12 +116,16 @@ export class AddItemPage implements OnInit {
           console.log(err);
         });
 
-      this.visual.ToastMensagge("Announcement Created");
+      this.visual.ToastMensagge("Announcement Edited");
     } else {
       this.visual.ToastMensagge("All the fields are obligatories");
     }
   }
   onClickGetCurrentLocation() {
     this.native.GetCurrentLocation();
+  }
+
+  onClickCloseModal() {
+    this.visual.ModalEditClose();
   }
 }

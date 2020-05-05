@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
-
+import { FormsModule } from "@angular/forms";
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
@@ -22,10 +22,12 @@ import { PopoverPageModule } from "./popover/popover.module";
 import { AddImgPage } from "./add-img/add-img.page";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { from } from "rxjs";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
+import { EditAnnouncementPage } from "./edit-announcement/edit-announcement.page";
 
 @NgModule({
-  declarations: [AppComponent, PopoverPage, AddImgPage],
-  entryComponents: [PopoverPage, AddImgPage],
+  declarations: [AppComponent, PopoverPage, AddImgPage, EditAnnouncementPage],
+  entryComponents: [PopoverPage, AddImgPage, EditAnnouncementPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -33,6 +35,7 @@ import { from } from "rxjs";
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    FormsModule,
   ],
   providers: [
     StatusBar,
@@ -41,6 +44,7 @@ import { from } from "rxjs";
     ImagePicker,
     CallNumber,
     AngularFireStorage,
+    Geolocation,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,16 +1,16 @@
 export interface Announcements {
-  id: String;
-  tittle: String;
-  categorie: String;
+  id: string;
+  tittle: string;
+  categorie: string;
   price: Number;
-  description: String;
-  Location: String;
+  description: string;
+  Location: string;
   creationDate: number;
-  userId: String;
-  userName: String;
-  userMail: String;
+  userId: string;
+  userName: string;
+  userMail: string;
   userPhone: string;
-  Img: String;
+  Img: string;
   fav: Boolean;
   reports: number;
 }

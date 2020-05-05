@@ -174,4 +174,18 @@ export class ManageDataService {
     );
     return data;
   }
+
+  ///Edit Announcement
+
+  async EditAnnouncement(item: Announcements) {
+    ///Edit in main announcements
+    this.db.doc("Announcements/" + item.id).set(item);
+
+    //Edit in user announcements
+    this.db
+      .doc(
+        "Users/" + sessionStorage.getItem("user") + "/Announcements/" + item.id
+      )
+      .set(item);
+  }
 }
