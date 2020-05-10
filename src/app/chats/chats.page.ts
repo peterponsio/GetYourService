@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { ManageDataService } from "src/services/manage-data.service";
+import { Sesion } from "src/interfaces/sesion";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-chats",
@@ -7,12 +10,31 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ChatsPage implements OnInit {
   chats: boolean;
-  nochats: boolean;
 
-  constructor() {
+  listSesions: any;
+
+  constructor(private manage: ManageDataService, private router: Router) {
     this.chats = false;
-    this.nochats = true;
   }
 
   ngOnInit() {}
+
+  ionViewWillEnter() {
+    this.manage
+      .GetChatSessions()
+      .then((data) => {
+        data.valueChanges().subscribe((res) => {
+          this.listSesions = res;
+
+          this.chats = this.listSesions.length != 0 ? true : false;
+        });
+      })
+      .catch();
+  }
+
+  //Open Chat Sesion
+
+  onClickOpenSesion(sesion: Sesion) {
+    this.router.navigate(["mensagges", { data: JSON.stringify(sesion) }]);
+  }
 }

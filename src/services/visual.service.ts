@@ -13,6 +13,7 @@ import { AutenticationService } from "./autentication.service";
 import { single } from "rxjs/operators";
 import { ManageDataService } from "./manage-data.service";
 import { EditAnnouncementPage } from "src/app/edit-announcement/edit-announcement.page";
+import { FilterPage } from "src/app/filter/filter.page";
 
 @Injectable({
   providedIn: "root",
@@ -183,6 +184,23 @@ export class VisualService {
   }
 
   async ModalEditClose() {
+    this.modalController.dismiss();
+  }
+
+  /////Modal Filters
+
+  async ModalFilters() {
+    const modal = await this.modalController.create({
+      component: FilterPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    return data;
+  }
+
+  async ModalFiltersClose() {
     this.modalController.dismiss();
   }
 }

@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="Nochats" *ngIf="nochats">
+  <ion-card class="Nochats" *ngIf="!chats">
     <ion-card-header>
       <ion-card-subtitle>
         <img src="./assets/gys/logo_transparent.png" alt="Announcement image" />
@@ -18,15 +18,37 @@
       </ion-card-content>
     </ion-card-header>
   </ion-card>
-  <ion-card class="Nochats" *ngIf="chats">
-    <ion-card-header>
-      <ion-card-subtitle>
-        <img src="./assets/gys/logo_transparent.png" alt="Announcement image" />
-      </ion-card-subtitle>
-      <ion-card-title>No mensagges yet</ion-card-title>
-      <ion-card-content>
-        Find a service in our services list
-      </ion-card-content>
-    </ion-card-header>
-  </ion-card>
+
+  <ion-list *ngIf="chats" class="list">
+    <ion-item-sliding *ngFor="let sesion of listSesions" class="conversation">
+      <ion-item (click)="onClickOpenSesion(sesion)">
+        <img
+          *ngIf="sesion.img!='defaultImg.png'"
+          src="{{sesion.img}}"
+          alt="sesion img"
+          class="conver_img"
+        />
+        <ion-img
+          *ngIf="sesion.img=='defaultImg.png'"
+          class="conver_img"
+          src="./assets/gys/logo_transparent.png"
+          alt="sesion image"
+        ></ion-img>
+
+        <div class="info_items">
+          <p style="width: fit-content; margin-top: 1em;">
+            {{sesion.receiver_userName}}
+          </p>
+          <p style="width: fit-content; margin-top: 1em;">
+            {{sesion.announcements}}
+          </p>
+        </div>
+      </ion-item>
+      <ion-item-options side="end" class="report">
+        <ion-item-option (click)="Delete(sesion)" color="danger"
+          >Delete</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

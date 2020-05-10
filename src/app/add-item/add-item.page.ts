@@ -48,7 +48,7 @@ export class AddItemPage implements OnInit {
     tittle: "",
     categorie: "",
     price: 0,
-    creationDate: 0,
+    creationDate: "",
     userMail: "",
     userName: "",
     userPhone: "",
@@ -76,7 +76,7 @@ export class AddItemPage implements OnInit {
     this.newAnnouncement.userId = sessionStorage.getItem("user");
 
     this.newAnnouncement.creationDate =
-      date.getDate() + date.getMonth() + date.getFullYear();
+      "" + date.getDate() + date.getMonth() + date.getFullYear();
 
     this.newAnnouncement.Img = "defaultImg.png";
 

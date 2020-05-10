@@ -5,6 +5,7 @@ import { NativeToolsService } from "src/services/native-tools.service";
 import { Announcements } from "src/interfaces/announcements";
 import { VisualService } from "src/services/visual.service";
 import { element } from "protractor";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-list",
@@ -17,11 +18,15 @@ export class ListPage implements OnInit {
   constructor(
     private manage: ManageDataService,
     private native: NativeToolsService,
-    private visual: VisualService
+    private visual: VisualService,
+    private router: Router
   ) {
     ///Get current user
     this.currentUser = sessionStorage.getItem("user");
+    this.usingFilters = false;
   }
+
+  usingFilters: boolean;
 
   listFavs: any;
 
@@ -32,19 +37,7 @@ export class ListPage implements OnInit {
   search: string;
 
   ///Use on init to get all the data from firebase
-  ngOnInit() {
-    // this.manage
-    //   .GetListAnnouncements()
-    //   .then((data) => {
-    //     data.valueChanges().subscribe((res) => {
-    //       console.log(res);
-    //       this.listAnnouncements = res.reverse();
-    //     });
-    //   })
-    //   .catch();
-    // ///Get current user
-    // this.currentUser = sessionStorage.getItem("user");
-  }
+  ngOnInit() {}
   ////////////////////////////////////////////////////////////////////////////////////////////////////////7
   // Use will enter to get data to
   ionViewWillEnter() {
@@ -108,25 +101,73 @@ export class ListPage implements OnInit {
 
   ////Method to open the filter modal and recover data
 
-  FilterItems() {
+  FilterItems(ev) {
     if (
       this.search === "" ||
       this.search == undefined ||
       this.search.length == 0
     ) {
-      console.log("entro");
       this.listAnnouncements = this.listOriginalAnnouncements;
     }
     if (this.search != "") {
       this.listFilter = this.listAnnouncements.filter(
         (element) =>
-          element.tittle.includes(this.search) ||
-          element.categorie.includes(this.search) ||
-          element.Location.includes(this.search)
+          element.tittle.toLowerCase().includes(this.search.toLowerCase()) ||
+          element.categorie.toLowerCase().includes(this.search.toLowerCase()) ||
+          element.Location.toLowerCase().includes(this.search.toLowerCase())
       );
       this.listAnnouncements = this.listFilter;
     }
   }
+  //On click to clear the filters
+  ClearFilters() {
+    this.usingFilters = false;
+    this.listAnnouncements = this.listOriginalAnnouncements;
+  }
+
+  ///Filters of the modal filters
+  MoreFilters() {
+    this.visual.ModalFilters().then((res) => {
+      this.listAnnouncements = this.listOriginalAnnouncements;
+      console.log(res);
+      if (res.search != "" && res.search != undefined) {
+        this.listFilter = this.listAnnouncements.filter((element) =>
+          element.tittle.toLowerCase().includes(res.search.toLowerCase())
+        );
+        this.listAnnouncements = this.listFilter;
+        this.usingFilters = true;
+      }
+      if (res.categorie != undefined && res.categorie != "") {
+        this.listFilter = this.listAnnouncements.filter((element) =>
+          element.categorie.toLowerCase().includes(res.categorie.toLowerCase())
+        );
+        this.listAnnouncements = this.listFilter;
+        this.usingFilters = true;
+      }
+      if (res.location != "" && res.location != undefined) {
+        this.listFilter = this.listAnnouncements.filter((element) =>
+          element.Location.toLowerCase().includes(res.location.toLowerCase())
+        );
+        this.listAnnouncements = this.listFilter;
+        this.usingFilters = true;
+      }
+      if (res.priceLow != undefined && res.priceLow > 0) {
+        this.listFilter = this.listAnnouncements.filter(
+          (element) => element.price >= res.priceLow
+        );
+        this.listAnnouncements = this.listFilter;
+        this.usingFilters = true;
+      }
+      if (res.priceMax != undefined && res.priceMax > 1) {
+        this.listFilter = this.listAnnouncements.filter(
+          (element) => element.price <= res.priceMax
+        );
+        this.listAnnouncements = this.listFilter;
+        this.usingFilters = true;
+      }
+    });
+  }
+
   ///////CAll client///////////////////////
   Call(item: Announcements) {
     this.native.CallClient(item);
@@ -134,7 +175,6 @@ export class ListPage implements OnInit {
 
   /////Text Client////////////////////////77
   Text(item: Announcements) {
-    console.log(item);
     this.manage
       .CreateChatSession(item)
       .then((res) => {
@@ -159,5 +199,11 @@ export class ListPage implements OnInit {
       this.visual.ToastMensagge("Removed from favorites");
       this.listAnnouncements[index].fav = false;
     });
+  }
+
+  ///Seee info of the item
+
+  onClickInfoItem(item: Announcements) {
+    this.router.navigate(["item-info", { data: JSON.stringify(item) }]);
   }
 }

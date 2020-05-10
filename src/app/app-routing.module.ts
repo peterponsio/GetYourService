@@ -99,6 +99,10 @@ const routes: Routes = [
     path: 'edit-announcement',
     loadChildren: () => import('./edit-announcement/edit-announcement.module').then( m => m.EditAnnouncementPageModule)
   },
+  {
+    path: 'mensagges',
+    loadChildren: () => import('./mensagges/mensagges.module').then( m => m.MensaggesPageModule)
+  },
 ];
 @NgModule({
   imports: [

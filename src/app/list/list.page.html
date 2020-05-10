@@ -2,14 +2,19 @@
   <ion-toolbar class="tools">
     <div>
       <ion-searchbar
+        *ngIf="!usingFilters"
         (ionChange)="FilterItems($event)"
         showCancelButton="focus"
         [(ngModel)]="search"
       ></ion-searchbar>
+      <ion-button *ngIf="usingFilters" (click)="ClearFilters()" color="dark">
+        <ion-icon slot="start" name="clear"></ion-icon>
+        <ion-label>Clear Filters</ion-label>
+      </ion-button>
       <ion-icon
         name="options-outline"
         class="filter"
-        (click)="FilterItems()"
+        (click)="MoreFilters()"
       ></ion-icon>
     </div>
   </ion-toolbar>
@@ -32,7 +37,11 @@
       class="slide"
       *ngFor="let announcement of listAnnouncements;let i=index"
     >
-      <ion-item class="item" *ngIf="currentUser!=announcement.userId">
+      <ion-item
+        class="item"
+        *ngIf="currentUser!=announcement.userId"
+        (click)="onClickInfoItem(announcement)"
+      >
         <ion-img
           *ngIf="announcement.Img=='defaultImg.png'"
           class="item_img"

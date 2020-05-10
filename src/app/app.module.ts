@@ -24,10 +24,18 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { from } from "rxjs";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { EditAnnouncementPage } from "./edit-announcement/edit-announcement.page";
+import { FilterPage } from "./filter/filter.page";
+import { DatePipe } from "@angular/common";
 
 @NgModule({
-  declarations: [AppComponent, PopoverPage, AddImgPage, EditAnnouncementPage],
-  entryComponents: [PopoverPage, AddImgPage, EditAnnouncementPage],
+  declarations: [
+    AppComponent,
+    PopoverPage,
+    AddImgPage,
+    EditAnnouncementPage,
+    FilterPage,
+  ],
+  entryComponents: [PopoverPage, AddImgPage, EditAnnouncementPage, FilterPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -45,6 +53,7 @@ import { EditAnnouncementPage } from "./edit-announcement/edit-announcement.page
     CallNumber,
     AngularFireStorage,
     Geolocation,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

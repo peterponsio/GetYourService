@@ -1,0 +1,60 @@
+.data {
+  border: 1px solid black;
+  height: 4em;
+  width: 100%;
+}
+
+.data ion-img {
+  height: 4em;
+  position: absolute;
+  left: 5px;
+}
+
+.data p {
+  text-align: center;
+}
+
+.sender {
+  background-color: greenyellow;
+  color: black;
+  position: absolute;
+  left: 0;
+  width: 90%;
+  height: fit-content;
+  border-radius: 1em;
+
+  min-height: 3em;
+  padding: 5px;
+}
+.receiver {
+  background-color: black;
+  color: blanchedalmond;
+  position: absolute;
+  right: 0;
+  width: 90%;
+
+  height: fit-content;
+  border-radius: 1em;
+  min-height: 3em;
+  padding: 5px;
+}
+.sendInput {
+  width: 90%;
+
+  height: fit-content;
+  height: 3.5em;
+}
+
+.sendButton {
+  background-color: transparent;
+  width: 10%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 3.5em;
+}
+
+.footer {
+  height: 3.5em;
+  border-top: 1px solid black;
+}

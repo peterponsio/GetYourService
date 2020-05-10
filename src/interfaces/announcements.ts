@@ -5,7 +5,7 @@ export interface Announcements {
   price: Number;
   description: string;
   Location: string;
-  creationDate: number;
+  creationDate: string;
   userId: string;
   userName: string;
   userMail: string;

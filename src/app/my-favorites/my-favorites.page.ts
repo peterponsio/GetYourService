@@ -66,7 +66,6 @@ export class MyFavoritesPage implements OnInit {
 
   /////Text Client////////////////////////77
   Text(item: Announcements) {
-    console.log(item);
     this.manage
       .CreateChatSession(item)
       .then((res) => {
