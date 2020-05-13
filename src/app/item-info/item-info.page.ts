@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Announcements } from "src/interfaces/announcements";
+import { ManageDataService } from "src/services/manage-data.service";
+import { NativeToolsService } from "src/services/native-tools.service";
+import { VisualService } from "src/services/visual.service";
 
 @Component({
   selector: "app-item-info",
@@ -20,7 +24,13 @@ export class ItemInfoPage implements OnInit {
   userMail: string;
   date: string;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private manage: ManageDataService,
+    private native: NativeToolsService,
+    private visual: VisualService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -39,5 +49,43 @@ export class ItemInfoPage implements OnInit {
       this.date = this.itemData.creationDate;
       this.userMail = this.itemData.userMail;
     });
+  }
+
+  ///////CAll client///////////////////////
+  Call() {
+    this.native.CallClient(this.itemData);
+  }
+
+  /////Text Client////////////////////////77
+  Text() {
+    this.manage
+      .CreateChatSession(this.itemData)
+      .then((res) => {
+        console.log("done");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  ///// FAv Item to add to a favs collection
+  MakeFav() {
+    this.manage.AddFavAnnouncement(this.itemData).then((res) => {
+      this.visual.ToastMensagge("Added to favorites");
+      this.fav = true;
+    });
+  }
+
+  //Unfav Item and removed from favs collection
+  UnFav() {
+    this.manage.RemoveFavorite(this.itemData).then((res) => {
+      this.visual.ToastMensagge("Removed from favorites");
+      this.fav = false;
+    });
+  }
+  ///Go back to refresh list
+
+  onClickBack() {
+    this.router.navigateByUrl("/tabs/list");
   }
 }

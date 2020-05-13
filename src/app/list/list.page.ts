@@ -62,6 +62,8 @@ export class ListPage implements OnInit {
               this.listFavs.forEach((favorites) => {
                 if (favorites.id == announcement.id) {
                   announcement.fav = true;
+                } else {
+                  announcement.fav = false;
                 }
               });
             });
@@ -69,6 +71,8 @@ export class ListPage implements OnInit {
               this.listFavs.forEach((favorites) => {
                 if (favorites.id == announcement.id) {
                   announcement.fav = true;
+                } else {
+                  announcement.fav = false;
                 }
               });
             });
@@ -80,12 +84,10 @@ export class ListPage implements OnInit {
     ///Get current user
     this.currentUser = sessionStorage.getItem("user");
   }
+  ionViewWillLeave() {}
 
   doRefresh(event) {
-    console.log("Begin async operation");
-
     setTimeout(() => {
-      console.log("Async operation has ended");
       event.target.complete();
     }, 2000);
   }
@@ -129,7 +131,6 @@ export class ListPage implements OnInit {
   MoreFilters() {
     this.visual.ModalFilters().then((res) => {
       this.listAnnouncements = this.listOriginalAnnouncements;
-      console.log(res);
       if (res.search != "" && res.search != undefined) {
         this.listFilter = this.listAnnouncements.filter((element) =>
           element.tittle.toLowerCase().includes(res.search.toLowerCase())
@@ -176,13 +177,36 @@ export class ListPage implements OnInit {
   /////Text Client////////////////////////77
   Text(item: Announcements) {
     this.manage
-      .CreateChatSession(item)
-      .then((res) => {
-        console.log("done");
+      .GetChatSessions()
+      .then((data) => {
+        data.valueChanges().subscribe((res) => {
+          var keepSearch = true;
+          if (res.length == 0) {
+            this.manage
+              .CreateChatSession(item)
+              .then((res) => {})
+              .catch((err) => {});
+          }
+          res.forEach((element) => {
+            if (keepSearch) {
+              if (element.id_announcement == item.id) {
+                keepSearch = false;
+                this.router.navigate([
+                  "mensagges",
+                  { data: JSON.stringify(element) },
+                ]);
+              } else {
+                this.manage
+                  .CreateChatSession(item)
+                  .then((res) => {})
+                  .catch((err) => {});
+                keepSearch = false;
+              }
+            }
+          });
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch();
   }
 
   ///// FAv Item to add to a favs collection

@@ -11,6 +11,7 @@ import { Chat } from "src/interfaces/chat";
 import { Sesion } from "src/interfaces/sesion";
 import { DatePipe } from "@angular/common";
 import * as firebase from "firebase";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -32,13 +33,18 @@ export class ManageDataService {
     id: "",
     id_receiver: "",
     id_sender: "",
+    id_announcement: "",
     creationDate: 0,
     receiver_userName: "",
     announcements: "",
     img: "",
   };
 
-  constructor(private db: AngularFirestore, private datePipe: DatePipe) {}
+  constructor(
+    private db: AngularFirestore,
+    private datePipe: DatePipe,
+    private router: Router
+  ) {}
 
   /////////Method to create a newUser in the database ///////////////
 
@@ -216,6 +222,7 @@ export class ManageDataService {
     this.session.id = "" + date;
     this.session.id_receiver = item.userId;
     this.session.id_sender = sessionStorage.getItem("user");
+    this.session.id_announcement = item.id;
     this.session.announcements = item.tittle;
     this.session.img = item.Img;
     this.session.receiver_userName = item.userName;
@@ -223,10 +230,18 @@ export class ManageDataService {
 
     ////////////////////////////////////////////////////////////777
     this.db
-      .doc("Users/" + sessionStorage.getItem("user") + "/Chats/" + item.id)
+      .doc(
+        "Users/" + sessionStorage.getItem("user") + "/Chats/" + this.session.id
+      )
       .set(this.session);
     ////Create the sesion in the announcement user owner
-    this.db.doc("Users/" + item.userId + "/Chats/" + item.id).set(this.session);
+    this.db
+      .doc("Users/" + item.userId + "/Chats/" + this.session.id)
+      .set(this.session);
+
+    /// Go to the sesion
+
+    this.router.navigate(["mensagges", { data: JSON.stringify(this.session) }]);
   }
 
   ///Get all chat sesions chats of the user

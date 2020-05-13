@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ion-icon
+      name="chevron-back-outline"
+      slot="start"
+      class="back"
+      (click)="onClickBack()"
+    ></ion-icon>
     <ion-title style="text-align: center;">{{tittle}}</ion-title>
   </ion-toolbar>
 </ion-header>

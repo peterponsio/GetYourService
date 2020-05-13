@@ -37,12 +37,9 @@
       class="slide"
       *ngFor="let announcement of listAnnouncements;let i=index"
     >
-      <ion-item
-        class="item"
-        *ngIf="currentUser!=announcement.userId"
-        (click)="onClickInfoItem(announcement)"
-      >
+      <ion-item class="item" *ngIf="currentUser!=announcement.userId">
         <ion-img
+          (click)="onClickInfoItem(announcement)"
           *ngIf="announcement.Img=='defaultImg.png'"
           class="item_img"
           src="./assets/gys/logo_transparent.png"
@@ -50,6 +47,7 @@
         >
         </ion-img>
         <ion-img
+          (click)="onClickInfoItem(announcement)"
           *ngIf="announcement.Img!='defaultImg.png'"
           class="item_img"
           [src]="announcement.Img"
@@ -58,7 +56,7 @@
         </ion-img>
         <ion-grid fixed>
           <ion-row>
-            <div class="info_items">
+            <div class="info_items" (click)="onClickInfoItem(announcement)">
               <h6>{{announcement.tittle}}</h6>
               <p>{{announcement.price}} €</p>
               <p>{{announcement.description}}</p>
