@@ -47,4 +47,10 @@ export class AccountPage implements OnInit {
   onClickSettings() {
     this.router.navigateByUrl("settings");
   }
+  onClickTerms() {
+    this.router.navigateByUrl("terms-and-conditions");
+  }
+  onClickHelp() {
+    this.router.navigateByUrl("help");
+  }
 }
