@@ -13,4 +13,5 @@ export interface Announcements {
   Img: string;
   fav: Boolean;
   reports: number;
+  chatOn: boolean;
 }

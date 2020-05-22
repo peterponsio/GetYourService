@@ -58,6 +58,7 @@ export class AddItemPage implements OnInit {
     Img: "defaultImg.png",
     fav: false,
     reports: 0,
+    chatOn: false,
   };
 
   //Call to a db method to add a new announcement Also check all the inputs are valids
@@ -103,6 +104,7 @@ export class AddItemPage implements OnInit {
       this.manage
         .AddAnnouncement(this.newAnnouncement)
         .then((res) => {
+          this.native.GetCurrentLocation();
           this.visual
             .ModalImg(this.newAnnouncement)
             .then()

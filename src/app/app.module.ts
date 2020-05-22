@@ -15,7 +15,7 @@ import { CallNumber } from "@ionic-native/call-number/ngx";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-
+import { EmailComposer } from "@ionic-native/email-composer/ngx";
 import { firebaseConfig } from "../../src/app/consts/firebaseConf";
 import { PopoverPage } from "./popover/popover.page";
 import { PopoverPageModule } from "./popover/popover.module";
@@ -26,6 +26,8 @@ import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { EditAnnouncementPage } from "./edit-announcement/edit-announcement.page";
 import { FilterPage } from "./filter/filter.page";
 import { DatePipe } from "@angular/common";
+import { TickedsPage } from "./tickeds/tickeds.page";
+import { EmailSupportPage } from "./email-support/email-support.page";
 
 @NgModule({
   declarations: [
@@ -34,8 +36,17 @@ import { DatePipe } from "@angular/common";
     AddImgPage,
     EditAnnouncementPage,
     FilterPage,
+    TickedsPage,
+    EmailSupportPage,
   ],
-  entryComponents: [PopoverPage, AddImgPage, EditAnnouncementPage, FilterPage],
+  entryComponents: [
+    PopoverPage,
+    AddImgPage,
+    EditAnnouncementPage,
+    FilterPage,
+    TickedsPage,
+    EmailSupportPage,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -54,6 +65,7 @@ import { DatePipe } from "@angular/common";
     AngularFireStorage,
     Geolocation,
     DatePipe,
+    EmailComposer,
   ],
   bootstrap: [AppComponent],
 })

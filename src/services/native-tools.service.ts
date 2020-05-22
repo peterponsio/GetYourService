@@ -6,6 +6,16 @@ import { finalize } from "rxjs/operators";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Announcements } from "src/interfaces/announcements";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+// import {
+//   GoogleMaps,
+//   GoogleMap,
+//   GoogleMapsEvent,
+//   GoogleMapOptions,
+//   CameraPosition,
+//   MarkerOptions,
+//   Marker,
+//   Environment,
+// } from "@ionic-native/google-maps/ngx";
 
 @Injectable({
   providedIn: "root",
@@ -95,11 +105,12 @@ export class NativeToolsService {
   GetCurrentLocation() {
     this.geolocation
       .getCurrentPosition()
-      .then((res) => {
-        alert(res.coords);
+      .then((resp) => {
+        console.log(resp);
+        alert(resp);
       })
-      .catch((err) => {
-        alert(err);
+      .catch((error) => {
+        console.log("Error getting location", error);
       });
   }
 }

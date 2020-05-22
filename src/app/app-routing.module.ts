@@ -103,6 +103,14 @@ const routes: Routes = [
     path: 'mensagges',
     loadChildren: () => import('./mensagges/mensagges.module').then( m => m.MensaggesPageModule)
   },
+  {
+    path: 'tickeds',
+    loadChildren: () => import('./tickeds/tickeds.module').then( m => m.TickedsPageModule)
+  },
+  {
+    path: 'email-support',
+    loadChildren: () => import('./email-support/email-support.module').then( m => m.EmailSupportPageModule)
+  },
 ];
 @NgModule({
   imports: [

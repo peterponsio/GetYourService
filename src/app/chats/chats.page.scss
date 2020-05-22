@@ -20,13 +20,14 @@
   border-radius: 5px;
   border: 1px solid grey;
   width: 95%;
+
   margin: 0 auto;
   margin-top: 1em;
 }
 
 .info_items {
-  width: 100%;
   height: fit-content;
+
   font-size: medium;
   margin-top: 0px;
   margin-left: 1em;
@@ -35,4 +36,8 @@
 .conver_img {
   height: 5.5em;
   width: 5em;
+}
+
+.delete {
+  z-index: 1000;
 }

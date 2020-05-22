@@ -29,20 +29,20 @@
       <h1>Any mensagge yet start tipying</h1>
     </div>
     <ion-list *ngIf="mensagges">
-      <div *ngFor="let mensagge of listMensagges">
+      <div *ngFor="let mensagge of listMensagges" class="items">
         <ion-item
+          class="sender"
           lines="none"
           *ngIf="currentUser==mensagge.id_sender"
-          style="height: fit-content; min-height: 3.5em; margin-top: 1em;"
         >
-          <ion-label class="sender">{{mensagge.content}}</ion-label>
+          <p>{{mensagge.content}}</p>
         </ion-item>
         <ion-item
+          class="receiver"
           lines="none"
           *ngIf="currentUser!=mensagge.id_sender"
-          style="height: fit-content; min-height: 3.5em; margin-top: 1em;"
         >
-          <ion-label class="receiver">{{mensagge.content}}</ion-label>
+          <p>{{mensagge.content}}</p>
         </ion-item>
       </div>
     </ion-list>

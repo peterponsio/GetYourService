@@ -82,4 +82,10 @@ export class MyFavoritesPage implements OnInit {
       this.visual.ToastMensagge("Removed from favorites");
     });
   }
+  //Report Anouncement
+  Report(item: Announcements) {
+    this.manage.ReportAnnouncement(item).then((res) => {
+      this.visual.ToastMensagge("Announcement report");
+    });
+  }
 }

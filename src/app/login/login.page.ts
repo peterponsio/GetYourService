@@ -41,6 +41,7 @@ export class LoginPage implements OnInit {
     mail: "",
     password: "",
     credits: 0,
+    darkMode: false,
   };
 
   onClickSingIn() {
@@ -63,6 +64,7 @@ export class LoginPage implements OnInit {
         })
         .catch((err) => {
           console.log(err);
+          this.visual.ToastMensagge("Login incorrect try again");
         });
     } else if (
       this.inputMail === undefined ||

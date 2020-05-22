@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ManageDataService } from "src/services/manage-data.service";
 import { Sesion } from "src/interfaces/sesion";
 import { Router } from "@angular/router";
+import { VisualService } from "src/services/visual.service";
 
 @Component({
   selector: "app-chats",
@@ -13,7 +14,11 @@ export class ChatsPage implements OnInit {
 
   listSesions: any;
 
-  constructor(private manage: ManageDataService, private router: Router) {
+  constructor(
+    private manage: ManageDataService,
+    private router: Router,
+    private visual: VisualService
+  ) {
     this.chats = false;
   }
 
@@ -36,5 +41,12 @@ export class ChatsPage implements OnInit {
 
   onClickOpenSesion(sesion: Sesion) {
     this.router.navigate(["mensagges", { data: JSON.stringify(sesion) }]);
+  }
+
+  ////DelEte chat sesion
+  DeleteChat(item: Sesion) {
+    this.manage.DeleteOneChatSesion(item).then((res) => {
+      this.visual.ToastMensagge("Chat sesion deleted");
+    });
   }
 }

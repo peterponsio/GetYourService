@@ -14,6 +14,9 @@ import { single } from "rxjs/operators";
 import { ManageDataService } from "./manage-data.service";
 import { EditAnnouncementPage } from "src/app/edit-announcement/edit-announcement.page";
 import { FilterPage } from "src/app/filter/filter.page";
+import { Router } from "@angular/router";
+import { TickedsPage } from "src/app/tickeds/tickeds.page";
+import { EmailSupportPage } from "src/app/email-support/email-support.page";
 
 @Injectable({
   providedIn: "root",
@@ -25,7 +28,8 @@ export class VisualService {
     private autentication: AutenticationService,
     private toastController: ToastController,
     private modalController: ModalController,
-    private manage: ManageDataService
+    private manage: ManageDataService,
+    private router: Router
   ) {}
 
   // async presentPopover(mensage: String) {
@@ -100,9 +104,7 @@ export class VisualService {
           text: "Cancel",
           role: "cancel",
           cssClass: "secondary",
-          handler: () => {
-            console.log("Confirm Cancel");
-          },
+          handler: () => {},
         },
         {
           text: "Ok",
@@ -153,9 +155,7 @@ export class VisualService {
           text: "Cancel",
           role: "cancel",
           cssClass: "secondary",
-          handler: () => {
-            console.log("Confirm Cancel");
-          },
+          handler: () => {},
         },
         {
           text: "Ok",
@@ -180,7 +180,6 @@ export class VisualService {
     modal.present();
 
     const { data } = await modal.onDidDismiss();
-    console.log(data);
   }
 
   async ModalEditClose() {
@@ -202,5 +201,234 @@ export class VisualService {
 
   async ModalFiltersClose() {
     this.modalController.dismiss();
+  }
+  //////ALERT CHANGE PASSWORD
+  async AlertChangePass() {
+    const alert = await this.alertController.create({
+      header: "Change your password",
+      inputs: [
+        {
+          name: "password",
+          type: "text",
+          placeholder: "password",
+        },
+        {
+          name: "password2",
+          type: "text",
+          placeholder: "password again",
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: (data) => {
+            this.AlertAcceptChangePassword(data);
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+
+  ////Sure change password ?
+  async AlertAcceptChangePassword(data) {
+    const alert = await this.alertController.create({
+      header: "Are you sure? ",
+
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {},
+        },
+        {
+          text: "Ok",
+          handler: () => {
+            if (data.password == data.password2) {
+              this.autentication.ChangePassword(data.password).then((res) => {
+                this.ToastMensagge("Password changed correctly").then((res) => {
+                  this.autentication.CloseSesion().then((res) => {});
+                });
+              });
+            } else {
+              this.ToastMensagge("Please introduce again the password");
+            }
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+
+  ///MODAL TICKEDS PAGE
+
+  async ModalTicked() {
+    const modal = await this.modalController.create({
+      component: TickedsPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    return data;
+  }
+
+  /////MODAL SEND MAIL TO SUPPORT
+
+  async ModalEmailSupport() {
+    const modal = await this.modalController.create({
+      component: EmailSupportPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    return data;
+  }
+
+  ////Sure delete User ?
+  async AlertAcceptDeleteUser() {
+    const alert = await this.alertController.create({
+      header: "Are you sure? ",
+
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {},
+        },
+        {
+          text: "Ok",
+          handler: () => {
+            this.autentication.DeleteUser().then((res) => {
+              this.manage.DeleteUserFromDatabase();
+              this.ToastMensagge("User deleted correctly");
+              sessionStorage.clear();
+
+              sessionStorage.removeItem("user");
+
+              this.router.navigateByUrl("/");
+
+              //REmove dark mode
+              let body = document.getElementById("body");
+              body.classList.remove("dark");
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+
+  //////ALERT CHANGE PASSWORD
+  async ReautenticateToDeleteUser() {
+    const alert = await this.alertController.create({
+      header: "Please confirm puting your password",
+      inputs: [
+        {
+          name: "password",
+          type: "password",
+          placeholder: "password",
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: (data) => {
+            this.autentication.Reautenticate(data.password).then((res) => {
+              console.log(res);
+              if (res) {
+                this.autentication.DeleteUser().then((res) => {
+                  this.manage.DeleteUserFromDatabase();
+                  this.ToastMensagge("User deleted correctly");
+                  sessionStorage.clear();
+
+                  sessionStorage.removeItem("user");
+
+                  this.router.navigateByUrl("/");
+
+                  //REmove dark mode
+                  let body = document.getElementById("body");
+                  body.classList.remove("dark");
+                });
+              }
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+  async ReautenticateToPass() {
+    const alert = await this.alertController.create({
+      header: "Please confirm puting your password",
+      inputs: [
+        {
+          name: "PVpassword",
+          type: "password",
+          placeholder: "previous password",
+        },
+        {
+          name: "password1",
+          type: "password",
+          placeholder: "password",
+        },
+        {
+          name: "password2",
+          type: "password",
+          placeholder: "password",
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          },
+        },
+        {
+          text: "Ok",
+          handler: (data) => {
+            this.autentication.Reautenticate(data.PVpassword).then((res) => {
+              console.log(res);
+              if (res) {
+                if (data.password1 == data.password2) {
+                  this.autentication
+                    .ChangePassword(data.password1)
+                    .then((res) => {
+                      this.ToastMensagge("Password changed correctly").then(
+                        (res) => {
+                          this.autentication.CloseSesion().then((res) => {});
+                        }
+                      );
+                    });
+                } else {
+                  this.ToastMensagge("Please introduce again the password");
+                }
+              }
+            });
+          },
+        },
+      ],
+    });
+    alert.present();
   }
 }

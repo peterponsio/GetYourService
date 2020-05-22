@@ -50,7 +50,7 @@ export class MensaggesPage implements OnInit {
       .then((data) => {
         data.valueChanges().subscribe((res) => {
           this.listMensagges = res;
-          console.log(this.listMensagges);
+
           this.mensagges = this.listMensagges.length != 0 ? true : false;
         });
       });

@@ -8,11 +8,17 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="!dm">
-    Dark Mode<ion-toggle (click)="onClickDarkMode()"></ion-toggle>
-  </div>
-
-  <div *ngIf="dm">
-    Turn on Lights<ion-toggle (click)="onClickDarkMode()"></ion-toggle>
-  </div>
+  <ion-list class="options">
+    <ion-item>
+      <ion-icon name="contrast-outline"></ion-icon>
+      <ion-toggle *ngIf="dm" (ionChange)="onDarkMode()" checked></ion-toggle>
+      <ion-toggle *ngIf="!dm" (ionChange)="onDarkMode()"></ion-toggle>
+      <ion-label *ngIf="!dm">Turn on Dark Mode</ion-label>
+      <ion-label *ngIf="dm">Turn off Dark Mode</ion-label>
+    </ion-item>
+    <ion-item (click)="onClickResetPassword()">
+      <ion-icon name="refresh-circle-outline"></ion-icon>
+      <ion-label>Reset Password</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

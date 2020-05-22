@@ -5,13 +5,14 @@ import {
 } from "@angular/fire/firestore";
 import { Users } from "src/interfaces/users";
 import { Announcements } from "src/interfaces/announcements";
-
+import { EmailComposer } from "@ionic-native/email-composer/ngx";
 import { Menssage } from "src/app/menssage";
 import { Chat } from "src/interfaces/chat";
 import { Sesion } from "src/interfaces/sesion";
 import { DatePipe } from "@angular/common";
-import * as firebase from "firebase";
+
 import { Router } from "@angular/router";
+import { Tickets } from "src/interfaces/tickets";
 
 @Injectable({
   providedIn: "root",
@@ -29,6 +30,14 @@ export class ManageDataService {
     fav: false,
   };
 
+  ticked: Tickets = {
+    id: "",
+    user_sender_id: "",
+    date: "",
+    topic: "",
+    notes: "",
+  };
+
   session: Sesion = {
     id: "",
     id_receiver: "",
@@ -43,7 +52,8 @@ export class ManageDataService {
   constructor(
     private db: AngularFirestore,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private emailComposer: EmailComposer
   ) {}
 
   /////////Method to create a newUser in the database ///////////////
@@ -107,6 +117,7 @@ export class ManageDataService {
   ///////////////MAKE A FAVS COLLECTION
 
   async AddFavAnnouncement(item: Announcements) {
+    console.log(item);
     this.db
       .doc("Users/" + sessionStorage.getItem("user") + "/Favorites/" + item.id)
       .set(item)
@@ -200,6 +211,21 @@ export class ManageDataService {
     this.db.doc("Announcements/" + item.id).set(item);
 
     //Edit in user announcements
+    this.db
+      .doc(
+        "Users/" + sessionStorage.getItem("user") + "/Announcements/" + item.id
+      )
+      .set(item);
+  }
+
+  /////REPORT ANNOUNCEMENT/////////////
+
+  async ReportAnnouncement(item: Announcements) {
+    item.reports = item.reports + 1;
+    ///report  in main announcements
+    this.db.doc("Announcements/" + item.id).update(item);
+
+    //report  in user announcements
     this.db
       .doc(
         "Users/" + sessionStorage.getItem("user") + "/Announcements/" + item.id
@@ -326,19 +352,6 @@ export class ManageDataService {
   ///Get all sesion mensagges  of the user
 
   async GetChatMensagges(sesion_id: string) {
-    firebase
-      .database()
-      .ref(
-        "Users/" +
-          sessionStorage.getItem("user") +
-          "/Chats/" +
-          sesion_id +
-          "/Mensagges/"
-      )
-      .on("value", function (snapshot) {
-        console.log(snapshot.val());
-      });
-
     let sesionData: AngularFirestoreCollection = this.db.collection<Menssage>(
       "Users/" +
         sessionStorage.getItem("user") +
@@ -348,5 +361,65 @@ export class ManageDataService {
     );
 
     return sesionData;
+  }
+
+  ////DELETE CHAT SESION
+
+  async DeleteOneChatSesion(sesion: Sesion) {
+    ///Delete sesion
+    console.log(sesion.id);
+    this.db
+      .doc("Users/" + sessionStorage.getItem("user") + "/Chats/" + sesion.id)
+      .delete();
+  }
+
+  /////TICKETS FOR HELP
+
+  async CreateNewTicked(topic: string, notes: string) {
+    let myDate = new Date();
+    let date = this.datePipe.transform(myDate, "yyyyMMddhhmmss");
+    let dateFormat = this.datePipe.transform(myDate, "dd-MM-yyyy-hh-mm");
+
+    this.ticked.id = "" + date;
+    this.ticked.user_sender_id = sessionStorage.getItem("user");
+    this.ticked.date = "" + dateFormat;
+    this.ticked.topic = topic;
+    this.ticked.notes = notes;
+    this.db.doc("Tickets/" + this.ticked.id).set(this.ticked);
+  }
+
+  /////SUPPORT EMAIL
+  async SendEmailSupport(topic: string, notes: string) {
+    let myDate = new Date();
+    let date = this.datePipe.transform(myDate, "yyyyMMddhhmmss");
+    let dateFormat = this.datePipe.transform(myDate, "dd-MM-yyyy-hh-mm");
+    // this.emailComposer.isAvailable().then((available: boolean) => {
+    //   if (available) {
+    //     //Now we know we can send
+    //     console.log("HHHHHHHHHHH");
+    //   }
+    // });
+
+    let email = {
+      to: "pedrodeveloperera@gmail.com",
+      cc: "erika@mustermann.de",
+      // bcc: ["john@doe.com", "jane@doe.com"],
+      // attachments: [
+      //   "file://img/logo.png",
+      //   "res://icon.png",
+      //   "base64:icon.png//iVBORw0KGgoAAAANSUhEUg...",
+      //   "file://README.pdf",
+      // ],
+      subject: "Cordova Icons",
+      body: "How are you? Nice greetings from Leipzig",
+      isHtml: true,
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(email);
+  }
+
+  async DeleteUserFromDatabase() {
+    this.db.doc("Users/" + sessionStorage.getItem("user")).delete();
   }
 }

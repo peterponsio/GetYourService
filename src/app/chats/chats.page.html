@@ -35,7 +35,7 @@
           alt="sesion image"
         ></ion-img>
 
-        <div class="info_items">
+        <div class="info_items" style="width: fit-content;">
           <p style="width: fit-content; margin-top: 1em;">
             {{sesion.receiver_userName}}
           </p>
@@ -45,7 +45,7 @@
         </div>
       </ion-item>
       <ion-item-options side="end" class="report">
-        <ion-item-option (click)="Delete(sesion)" color="danger"
+        <ion-item-option (click)="DeleteChat(sesion)" color="danger"
           >Delete</ion-item-option
         >
       </ion-item-options>

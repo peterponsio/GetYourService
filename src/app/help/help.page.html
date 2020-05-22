@@ -18,21 +18,21 @@
     </ion-card-header>
     <ion-card-content>
       <h1>Via:</h1>
-      <h6>Send ticket</h6>
-      <h6>Send a mail to us support service</h6>
-      <h6>Chat with us</h6>
-      <h6>Reset password</h6>
-      <h6>Delete my user</h6>
+      <h6 (click)="onClickSendTicket()">Send ticket</h6>
+      <h6 (click)="onClickSendHelpMail()">Send a mail to us support service</h6>
+      <h6 (click)="onClickChatWithUs()">Chat with us</h6>
+      <h6 (click)="onClickResetPassword()">Reset password</h6>
+      <h6 (click)="onClickDeleteUser()">Delete my user</h6>
 
       <br />
-      <h3>Help us Improve:</h3>
+      <h3 (click)="onClickSendOpinion()">Help us Improve:</h3>
 
-      <h6>Send us via email your proposes</h6>
+      <h6 (click)="onClickSendProposes()">Send us via email your proposes</h6>
 
       <br />
       <h3>Inform about an error:</h3>
 
-      <h6>Inform error</h6>
+      <h6 (click)="onClickInform()">Inform error</h6>
     </ion-card-content>
   </ion-card>
 </ion-content>

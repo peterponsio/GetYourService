@@ -1,13 +1,10 @@
 .data {
-  border: 1px solid black;
   height: 4em;
   width: 100%;
 }
 
 .data ion-img {
   height: 4em;
-  position: absolute;
-  left: 5px;
 }
 
 .data p {
@@ -22,9 +19,8 @@
   width: 90%;
   height: fit-content;
   border-radius: 1em;
-
-  min-height: 3em;
-  padding: 5px;
+  border: 1px solid greenyellow;
+  min-height: 3.5em;
 }
 .receiver {
   background-color: black;
@@ -33,16 +29,36 @@
   right: 0;
   width: 90%;
 
-  height: fit-content;
   border-radius: 1em;
-  min-height: 3em;
-  padding: 5px;
+  min-height: 3.5em;
+  border: 1px solid black;
+}
+.receiver * {
+  margin-left: 1px;
+  margin-top: 2px;
+  float: left;
+}
+.sender * {
+  padding-left: 1px;
+  padding-top: 2px;
+  float: left;
+}
+
+.items {
+  margin-top: 0.3em;
+  height: fit-content;
+
+  min-height: 4em;
+}
+
+.items * {
+  margin-top: 2px;
 }
 .sendInput {
   width: 90%;
 
   height: fit-content;
-  height: 3.5em;
+  height: 3em;
 }
 
 .sendButton {

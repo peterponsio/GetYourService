@@ -29,6 +29,7 @@ export class ListPage implements OnInit {
   usingFilters: boolean;
 
   listFavs: any;
+  listChats: any;
 
   listOriginalAnnouncements: any;
   listAnnouncements: any;
@@ -41,6 +42,7 @@ export class ListPage implements OnInit {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////7
   // Use will enter to get data to
   ionViewWillEnter() {
+    ///If dark mode its on
     this.manage
       .GetListAnnouncements()
       .then((data) => {
@@ -71,8 +73,27 @@ export class ListPage implements OnInit {
               this.listFavs.forEach((favorites) => {
                 if (favorites.id == announcement.id) {
                   announcement.fav = true;
-                } else {
-                  announcement.fav = false;
+                }
+              });
+            });
+          }
+        });
+      })
+      .catch();
+
+    ///GET CHATS TO COMPARE
+
+    this.manage
+      .GetChatSessions()
+      .then((data) => {
+        data.valueChanges().subscribe((res) => {
+          this.listChats = res;
+
+          if (this.listChats != undefined && this.listChats != null) {
+            this.listAnnouncements.forEach((announcement) => {
+              this.listChats.forEach((chats) => {
+                if (chats.id_announcement == announcement.id) {
+                  announcement.chatOn = true;
                 }
               });
             });
@@ -175,38 +196,11 @@ export class ListPage implements OnInit {
   }
 
   /////Text Client////////////////////////77
-  Text(item: Announcements) {
+  Text(datos: Announcements) {
     this.manage
-      .GetChatSessions()
-      .then((data) => {
-        data.valueChanges().subscribe((res) => {
-          var keepSearch = true;
-          if (res.length == 0) {
-            this.manage
-              .CreateChatSession(item)
-              .then((res) => {})
-              .catch((err) => {});
-          }
-          res.forEach((element) => {
-            if (keepSearch) {
-              if (element.id_announcement == item.id) {
-                keepSearch = false;
-                this.router.navigate([
-                  "mensagges",
-                  { data: JSON.stringify(element) },
-                ]);
-              } else {
-                this.manage
-                  .CreateChatSession(item)
-                  .then((res) => {})
-                  .catch((err) => {});
-                keepSearch = false;
-              }
-            }
-          });
-        });
-      })
-      .catch();
+      .CreateChatSession(datos)
+      .then((res) => {})
+      .catch((err) => {});
   }
 
   ///// FAv Item to add to a favs collection
@@ -229,5 +223,12 @@ export class ListPage implements OnInit {
 
   onClickInfoItem(item: Announcements) {
     this.router.navigate(["item-info", { data: JSON.stringify(item) }]);
+  }
+
+  //Report Anouncement
+  Report(item: Announcements) {
+    this.manage.ReportAnnouncement(item).then((res) => {
+      this.visual.ToastMensagge("Announcement report");
+    });
   }
 }

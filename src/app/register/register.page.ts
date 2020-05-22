@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit {
     mail: "",
     password: "",
     credits: 0,
+    darkMode: false,
   };
 
   ngOnInit() {}

@@ -6,4 +6,5 @@ export interface Users {
   mail: String;
   password: String;
   credits: Number;
+  darkMode: boolean;
 }
