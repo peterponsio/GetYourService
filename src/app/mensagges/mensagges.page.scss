@@ -21,6 +21,7 @@
   border-radius: 1em;
   border: 1px solid greenyellow;
   min-height: 3.5em;
+  overflow-wrap: break-word;
 }
 .receiver {
   background-color: black;
@@ -28,7 +29,7 @@
   position: absolute;
   right: 0;
   width: 90%;
-
+  overflow-wrap: break-word;
   border-radius: 1em;
   min-height: 3.5em;
   border: 1px solid black;
@@ -56,9 +57,9 @@
 }
 .sendInput {
   width: 90%;
-
+  overflow-wrap: break-word;
   height: fit-content;
-  height: 3em;
+  min-height: 3em;
 }
 
 .sendButton {
@@ -73,4 +74,13 @@
 .footer {
   height: 3.5em;
   border-top: 1px solid black;
+}
+.mensa * {
+  margin-top: 1em;
+  font-size: medium;
+  margin-bottom: 1em;
+}
+.mensa {
+  margin-bottom: 3em;
+  height: fit-content;
 }

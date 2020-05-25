@@ -9,10 +9,11 @@ import { EmailComposer } from "@ionic-native/email-composer/ngx";
 import { Menssage } from "src/app/menssage";
 import { Chat } from "src/interfaces/chat";
 import { Sesion } from "src/interfaces/sesion";
-import { DatePipe } from "@angular/common";
-
+import { DatePipe, JsonPipe } from "@angular/common";
+import { Notifications } from "src/interfaces/notifications";
 import { Router } from "@angular/router";
 import { Tickets } from "src/interfaces/tickets";
+import { from } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -47,6 +48,11 @@ export class ManageDataService {
     receiver_userName: "",
     announcements: "",
     img: "",
+  };
+
+  notis: Notifications = {
+    id: "notis",
+    cant: 0,
   };
 
   constructor(
@@ -265,6 +271,19 @@ export class ManageDataService {
       .doc("Users/" + item.userId + "/Chats/" + this.session.id)
       .set(this.session);
 
+    ///ADD NOTIFICATION
+    // this.GetNotifications(item.userId).then((data) => {
+    //   let canti;
+    //   data.valueChanges().subscribe((res) => {
+    //     canti = res;
+    //   });
+    //   console.log(canti);
+    // });
+
+    // this.db
+    //   .doc("Users/" + item.userId + "/Notifications/" + this.notis.id)
+    //   .set(this.notis);
+
     /// Go to the sesion
 
     this.router.navigate(["mensagges", { data: JSON.stringify(this.session) }]);
@@ -363,6 +382,16 @@ export class ManageDataService {
     return sesionData;
   }
 
+  ///GET ALL NOTIS
+
+  async GetNotifications(id_user: string) {
+    let sesionData: AngularFirestoreCollection = this.db.collection<
+      Notifications
+    >("Users/" + id_user + "/Notifications/" + "notis");
+
+    return sesionData;
+  }
+
   ////DELETE CHAT SESION
 
   async DeleteOneChatSesion(sesion: Sesion) {
@@ -402,7 +431,7 @@ export class ManageDataService {
 
     let email = {
       to: "pedrodeveloperera@gmail.com",
-      cc: "erika@mustermann.de",
+      cc: "",
       // bcc: ["john@doe.com", "jane@doe.com"],
       // attachments: [
       //   "file://img/logo.png",
@@ -410,8 +439,13 @@ export class ManageDataService {
       //   "base64:icon.png//iVBORw0KGgoAAAANSUhEUg...",
       //   "file://README.pdf",
       // ],
-      subject: "Cordova Icons",
-      body: "How are you? Nice greetings from Leipzig",
+      subject:
+        topic +
+        "from user with id: " +
+        sessionStorage.getItem("user") +
+        " -- " +
+        dateFormat,
+      body: notes,
       isHtml: true,
     };
 
@@ -419,7 +453,137 @@ export class ManageDataService {
     this.emailComposer.open(email);
   }
 
+  ///EMAIL WITH USER IDEAS
+
+  async SendEmailIdeas(topic: string, notes: string) {
+    let myDate = new Date();
+    let date = this.datePipe.transform(myDate, "yyyyMMddhhmmss");
+    let dateFormat = this.datePipe.transform(myDate, "dd-MM-yyyy-hh-mm");
+    // this.emailComposer.isAvailable().then((available: boolean) => {
+    //   if (available) {
+    //     //Now we know we can send
+    //     console.log("HHHHHHHHHHH");
+    //   }
+    // });
+
+    let email = {
+      to: "pedrodeveloperera@gmail.com",
+      cc: "",
+      // bcc: ["john@doe.com", "jane@doe.com"],
+      // attachments: [
+      //   "file://img/logo.png",
+      //   "res://icon.png",
+      //   "base64:icon.png//iVBORw0KGgoAAAANSUhEUg...",
+      //   "file://README.pdf",
+      // ],
+      subject:
+        topic +
+        "from user with id: " +
+        sessionStorage.getItem("user") +
+        " -- " +
+        dateFormat,
+      body: notes,
+      isHtml: true,
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(email);
+  }
+
+  ///USERS ERROR INFORMS
+
+  async InfoError(topic: string, notes: string) {
+    let myDate = new Date();
+    let date = this.datePipe.transform(myDate, "yyyyMMddhhmmss");
+    let dateFormat = this.datePipe.transform(myDate, "dd-MM-yyyy-hh-mm");
+
+    this.ticked.id = "" + date;
+    this.ticked.user_sender_id = sessionStorage.getItem("user");
+    this.ticked.date = "" + dateFormat;
+    this.ticked.topic = topic;
+    this.ticked.notes = notes;
+    this.db.doc("ErrorsInforms/" + this.ticked.id).set(this.ticked);
+  }
+
   async DeleteUserFromDatabase() {
+    var useid = JSON.stringify(sessionStorage.getItem("user"));
+
+    ///DELETE GLOBAL ANNOUNCEMENTS OF THE USER
+    //DELETE ANNOUNCEMENTS OF THE USER
+    this.DeleteMyAnnouncements();
+
+    // DELETE CHATS OF THE USER
+
+    this.GetChatSessions().then((data) => {
+      data.valueChanges().subscribe((res) => {
+        var ListChats = res;
+        ListChats.forEach((element) => {
+          this.db
+            .doc(
+              "Users/" + sessionStorage.getItem("user") + "/Chats/" + element.id
+            )
+            .delete();
+        });
+      });
+    });
+    // DELETE FAVS LIST OF THE USER
+
+    this.DeleteFavorites();
+
     this.db.doc("Users/" + sessionStorage.getItem("user")).delete();
+  }
+
+  async SupportChat() {
+    let currentUser = JSON.parse(sessionStorage.getItem("userInfo"));
+
+    let id = this.db.createId();
+
+    //Create the sesion chat by a specific announcement
+    let myDate = new Date();
+    let date = this.datePipe.transform(myDate, "yyyyMMddhhmmss");
+
+    this.session.id = "" + date;
+    this.session.id_receiver = "KFrD595T0JNv7UqT8S2qHVf4y8d2";
+    this.session.id_sender = sessionStorage.getItem("user");
+    this.session.id_announcement = "KFrD595T0JNv7UqT8S2qHVf4y8d2";
+    this.session.announcements = "Support Chat";
+    this.session.img = "./assets/gys/logo_transparent.png";
+    this.session.receiver_userName = currentUser.name;
+    this.session.creationDate = parseInt(date);
+
+    ////////////////////////////////////////////////////////////777
+    this.db
+      .doc(
+        "Users/" + sessionStorage.getItem("user") + "/Chats/" + this.session.id
+      )
+      .set(this.session);
+    ////Create the sesion in admin chats or support team
+    this.db
+      .doc(
+        "Users/" + "KFrD595T0JNv7UqT8S2qHVf4y8d2" + "/Chats/" + this.session.id
+      )
+      .set(this.session);
+
+    ///ADD NOTIFICATION
+    // this.GetNotifications("KFrD595T0JNv7UqT8S2qHVf4y8d2").then((data) => {
+    //   let canti;
+    //   data.valueChanges().subscribe((res) => {
+    //     canti = res;
+    //   });
+    //   console.log(canti);
+    // });
+
+    // this.db
+    //   .doc(
+    //     "Users/" +
+    //       "KFrD595T0JNv7UqT8S2qHVf4y8d2" +
+    //       "/Notifications/" +
+    //       this.notis.id
+    //   )
+    //   .set(this.notis);
+
+    /// Go to the sesion
+
+    this.router.navigate(["mensagges", { data: JSON.stringify(this.session) }]);
   }
 }

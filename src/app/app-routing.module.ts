@@ -111,6 +111,14 @@ const routes: Routes = [
     path: 'email-support',
     loadChildren: () => import('./email-support/email-support.module').then( m => m.EmailSupportPageModule)
   },
+  {
+    path: 'user-ideas',
+    loadChildren: () => import('./user-ideas/user-ideas.module').then( m => m.UserIdeasPageModule)
+  },
+  {
+    path: 'error-informs',
+    loadChildren: () => import('./error-informs/error-informs.module').then( m => m.ErrorInformsPageModule)
+  },
 ];
 @NgModule({
   imports: [

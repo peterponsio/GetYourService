@@ -39,9 +39,25 @@ export class HelpPage implements OnInit {
     this.visual.ReautenticateToDeleteUser();
   }
 
+  onClickChatWithUs() {
+    this.manage.SupportChat();
+  }
+
   onClickResetPassword() {
     this.visual.ReautenticateToPass();
   }
 
-  onClickInform() {}
+  onClickSendProposes() {
+    this.visual.ModalEmailIdeas().then((data) => {
+      console.log(data);
+      this.manage.SendEmailIdeas(data.topic, data.notes).then((res) => {});
+    });
+  }
+
+  onClickInform() {
+    this.visual.ModalEmailError().then((data) => {
+      console.log(data);
+      this.manage.InfoError(data.topic, data.notes).then((res) => {});
+    });
+  }
 }

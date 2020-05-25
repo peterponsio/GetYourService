@@ -17,6 +17,8 @@ import { FilterPage } from "src/app/filter/filter.page";
 import { Router } from "@angular/router";
 import { TickedsPage } from "src/app/tickeds/tickeds.page";
 import { EmailSupportPage } from "src/app/email-support/email-support.page";
+import { UserIdeasPage } from "src/app/user-ideas/user-ideas.page";
+import { ErrorInformsPage } from "src/app/error-informs/error-informs.page";
 
 @Injectable({
   providedIn: "root",
@@ -293,6 +295,28 @@ export class VisualService {
     return data;
   }
 
+  ///MODAL SEND MAIL SUPPORT WITH IDEAS USER
+  async ModalEmailIdeas() {
+    const modal = await this.modalController.create({
+      component: UserIdeasPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    return data;
+  }
+
+  /////ERRORS INFORM BY USER
+  async ModalEmailError() {
+    const modal = await this.modalController.create({
+      component: ErrorInformsPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    return data;
+  }
+
   ////Sure delete User ?
   async AlertAcceptDeleteUser() {
     const alert = await this.alertController.create({
@@ -352,20 +376,20 @@ export class VisualService {
           text: "Ok",
           handler: (data) => {
             this.autentication.Reautenticate(data.password).then((res) => {
-              console.log(res);
               if (res) {
                 this.autentication.DeleteUser().then((res) => {
-                  this.manage.DeleteUserFromDatabase();
-                  this.ToastMensagge("User deleted correctly");
-                  sessionStorage.clear();
+                  this.manage.DeleteUserFromDatabase().then((res) => {
+                    this.ToastMensagge("User deleted correctly");
+                    sessionStorage.clear();
 
-                  sessionStorage.removeItem("user");
+                    sessionStorage.removeItem("user");
 
-                  this.router.navigateByUrl("/");
+                    this.router.navigateByUrl("/");
 
-                  //REmove dark mode
-                  let body = document.getElementById("body");
-                  body.classList.remove("dark");
+                    //REmove dark mode
+                    let body = document.getElementById("body");
+                    body.classList.remove("dark");
+                  });
                 });
               }
             });

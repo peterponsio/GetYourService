@@ -21,28 +21,27 @@
       src="./assets/gys/logo_transparent.png"
       alt="sesion image"
     ></ion-img>
-    <p>{{announcement_tittle}}</p>
   </div>
 
   <div class="chat">
     <div class="noMensagges" *ngIf="!mensagges">
       <h1>Any mensagge yet start tipying</h1>
     </div>
-    <ion-list *ngIf="mensagges">
+    <ion-list *ngIf="mensagges" class="mensa">
       <div *ngFor="let mensagge of listMensagges" class="items">
         <ion-item
           class="sender"
           lines="none"
           *ngIf="currentUser==mensagge.id_sender"
         >
-          <p>{{mensagge.content}}</p>
+          {{mensagge.content}}
         </ion-item>
         <ion-item
           class="receiver"
           lines="none"
           *ngIf="currentUser!=mensagge.id_sender"
         >
-          <p>{{mensagge.content}}</p>
+          {{mensagge.content}}
         </ion-item>
       </div>
     </ion-list>

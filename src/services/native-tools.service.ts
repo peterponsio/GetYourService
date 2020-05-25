@@ -6,6 +6,16 @@ import { finalize } from "rxjs/operators";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Announcements } from "src/interfaces/announcements";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+import { VisualService } from "./visual.service";
+import {
+  GaoDeLocation,
+  PositionOptions,
+  LocationModeEnum,
+  LocationProtocolEnum,
+  DesiredAccuracyEnum,
+  PositionRes,
+} from "@ionic-native/gao-de-location/ngx";
+
 // import {
 //   GoogleMaps,
 //   GoogleMap,
@@ -26,7 +36,8 @@ export class NativeToolsService {
     private storage: AngularFireStorage,
     private db: AngularFirestore,
     private callNumber: CallNumber,
-    private geolocation: Geolocation
+    private geolocation: Geolocation, // private gMaps: GoogleMap
+    private gaoDeLocation: GaoDeLocation
   ) {}
 
   optionsPicker = {
@@ -51,6 +62,28 @@ export class NativeToolsService {
     // window.imagePicker.OutputType.BASE64_STRING (1)
     outputType: 1,
   };
+  positionOptions: PositionOptions = {
+    androidOption: {
+      locationMode: LocationModeEnum.Hight_Accuracy,
+      gpsFirst: false,
+      HttpTimeOut: 30000,
+      interval: 2000,
+      needAddress: true,
+      onceLocation: false,
+      onceLocationLatest: false,
+      locationProtocol: LocationProtocolEnum.HTTP,
+      sensorEnable: false,
+      wifiScan: true,
+      locationCacheEnable: true,
+    },
+    iosOption: {
+      desiredAccuracy: DesiredAccuracyEnum.kCLLocationAccuracyBest,
+      pausesLocationUpdatesAutomatically: "YES",
+      allowsBackgroundLocationUpdates: "NO",
+      locationTimeout: 10,
+      reGeocodeTimeout: 5,
+    },
+  };
 
   OpenGallery(item: Announcements) {
     this.imagePicker.getPictures(this.optionsPicker).then(
@@ -66,8 +99,6 @@ export class NativeToolsService {
           .pipe(
             finalize(() => {
               fileRef.getDownloadURL().subscribe((url) => {
-                // localStorage.setItem("url", url);
-
                 item.Img = url;
 
                 //Update IMG IN THE ANNOUNCDMENTS OF USERS
@@ -102,15 +133,28 @@ export class NativeToolsService {
 
   // Get Current Location of user //////
 
-  GetCurrentLocation() {
-    this.geolocation
-      .getCurrentPosition()
-      .then((resp) => {
-        console.log(resp);
-        alert(resp);
+  async GetCurrentLocation() {
+    // this.geolocation
+    //   .getCurrentPosition()
+    //   .then((resp) => {
+    //     console.log(resp);
+    //     alert(resp.coords);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting location", error);
+    //   });
+
+    let ubi = await this.gaoDeLocation
+      .getCurrentPosition(this.positionOptions)
+      .then((res) => {
+        alert("ENTRO EN CURRENT");
+        return res.city;
       })
-      .catch((error) => {
-        console.log("Error getting location", error);
+      .catch((err) => {
+        alert(err);
       });
+
+    alert(ubi);
+    return ubi;
   }
 }

@@ -21,12 +21,12 @@
     <ion-input type="text" [(ngModel)]="topic" clearInput></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">What you need</ion-label>
+    <ion-label position="floating">Tell us your ideas</ion-label>
     <ion-input type="text" [(ngModel)]="notes" clearInput></ion-input>
   </ion-item>
 
   <ion-card class="add_button">
-    <ion-button (click)="onClickSendTicked()" color="dark" expand="block">
+    <ion-button (click)="onClickSendIdea()" color="dark" expand="block">
       <ion-icon slot="start" name="swap-vertical-outline"></ion-icon>
       Send
     </ion-button>

@@ -42,7 +42,6 @@ export class ListPage implements OnInit {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////7
   // Use will enter to get data to
   ionViewWillEnter() {
-    ///If dark mode its on
     this.manage
       .GetListAnnouncements()
       .then((data) => {

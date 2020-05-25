@@ -25,6 +25,7 @@ export class AddItemPage implements OnInit {
   userEmail: string;
   telephone: string;
   userId: string;
+  locationes: string;
 
   constructor(
     private visual: VisualService,
@@ -104,7 +105,6 @@ export class AddItemPage implements OnInit {
       this.manage
         .AddAnnouncement(this.newAnnouncement)
         .then((res) => {
-          this.native.GetCurrentLocation();
           this.visual
             .ModalImg(this.newAnnouncement)
             .then()
@@ -122,6 +122,9 @@ export class AddItemPage implements OnInit {
     }
   }
   onClickGetCurrentLocation() {
-    this.native.GetCurrentLocation();
+    alert("dsada");
+    this.native.GetCurrentLocation().then((data) => {
+      this.visual.AlertMens(data + "datos ");
+    });
   }
 }
