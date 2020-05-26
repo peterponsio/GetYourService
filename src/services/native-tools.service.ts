@@ -5,8 +5,7 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Announcements } from "src/interfaces/announcements";
-import { Geolocation } from "@ionic-native/geolocation/ngx";
-import { VisualService } from "./visual.service";
+
 import {
   GaoDeLocation,
   PositionOptions,
@@ -15,17 +14,6 @@ import {
   DesiredAccuracyEnum,
   PositionRes,
 } from "@ionic-native/gao-de-location/ngx";
-
-// import {
-//   GoogleMaps,
-//   GoogleMap,
-//   GoogleMapsEvent,
-//   GoogleMapOptions,
-//   CameraPosition,
-//   MarkerOptions,
-//   Marker,
-//   Environment,
-// } from "@ionic-native/google-maps/ngx";
 
 @Injectable({
   providedIn: "root",
@@ -36,7 +24,7 @@ export class NativeToolsService {
     private storage: AngularFireStorage,
     private db: AngularFirestore,
     private callNumber: CallNumber,
-    private geolocation: Geolocation, // private gMaps: GoogleMap
+
     private gaoDeLocation: GaoDeLocation
   ) {}
 
@@ -90,9 +78,14 @@ export class NativeToolsService {
       async (results) => {
         let base64Image = "data:image/jpeg;base64," + results;
 
+        alert("despues del base 64");
+
         let ruta = this.db.createId();
+
         let route = `/${ruta}`;
         const fileRef = this.storage.ref(route);
+
+        alert(route);
         const task = fileRef.putString(base64Image, "data_url");
         task
           .snapshotChanges()
@@ -134,16 +127,6 @@ export class NativeToolsService {
   // Get Current Location of user //////
 
   async GetCurrentLocation() {
-    // this.geolocation
-    //   .getCurrentPosition()
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     alert(resp.coords);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error getting location", error);
-    //   });
-
     let ubi = await this.gaoDeLocation
       .getCurrentPosition(this.positionOptions)
       .then((res) => {

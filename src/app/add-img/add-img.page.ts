@@ -26,6 +26,7 @@ export class AddImgPage implements OnInit {
 
   ngOnInit() {
     console.log(`${this.obj}`);
+
     console.log(`${this.obj.tittle}`);
   }
 

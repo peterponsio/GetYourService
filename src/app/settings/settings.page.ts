@@ -41,11 +41,17 @@ export class SettingsPage implements OnInit {
       body.classList.add("dark");
       this.dm = true;
       this.autentication.SetDarkModeToUser();
+      let dark = JSON.parse(sessionStorage.getItem("userInfo"));
+      dark.darkMode = true;
+      sessionStorage.setItem("userInfo", JSON.stringify(dark));
     } else {
       let body = document.getElementById("body");
       body.classList.remove("dark");
       this.dm = false;
       this.autentication.UnSETDarkModeToUser();
+      let dark = JSON.parse(sessionStorage.getItem("userInfo"));
+      dark.darkMode = false;
+      sessionStorage.setItem("userInfo", JSON.stringify(dark));
     }
   }
 
