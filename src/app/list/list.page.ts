@@ -46,9 +46,14 @@ export class ListPage implements OnInit {
       .GetListAnnouncements()
       .then((data) => {
         data.valueChanges().subscribe((res) => {
-          this.listAnnouncements = res.reverse();
+          this.listAnnouncements = res;
           //////Array copy to filter//////////
-          this.listOriginalAnnouncements = res.reverse();
+          let ee = [];
+          for (var i = this.listAnnouncements.length - 1; i >= 0; i--) {
+            ee.push(this.listAnnouncements[i]);
+          }
+          this.listAnnouncements = ee;
+          this.listOriginalAnnouncements = ee;
         });
       })
       .catch();
@@ -79,9 +84,7 @@ export class ListPage implements OnInit {
         });
       })
       .catch();
-
     ///GET CHATS TO COMPARE
-
     this.manage
       .GetChatSessions()
       .then((data) => {
@@ -100,7 +103,6 @@ export class ListPage implements OnInit {
         });
       })
       .catch();
-
     ///Get current user
     this.currentUser = sessionStorage.getItem("user");
   }

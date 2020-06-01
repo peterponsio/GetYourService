@@ -39,6 +39,18 @@ export class EditAnnouncementPage implements OnInit {
 
   ngOnInit() {}
 
+  ionViewWillEnter() {
+    console.log(this.obj);
+    this.announcement = this.obj.tittle;
+    this.description = this.obj.description;
+    this.categorie = this.obj.categorie;
+    this.price = this.obj.price;
+    this.location = this.obj.Location;
+    this.userName = this.obj.userName;
+    this.userEmail = this.obj.userMail;
+    this.telephone = this.obj.userPhone;
+  }
+
   customPopoverOptions: any = {
     subHeader: "Select your categorie",
     message: "Only select one categorie",

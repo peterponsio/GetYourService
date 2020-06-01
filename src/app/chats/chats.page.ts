@@ -30,7 +30,11 @@ export class ChatsPage implements OnInit {
       .then((data) => {
         data.valueChanges().subscribe((res) => {
           this.listSesions = res;
-
+          let ee = [];
+          for (var i = this.listSesions.length - 1; i >= 0; i--) {
+            ee.push(this.listSesions[i]);
+          }
+          this.listSesions = ee;
           this.chats = this.listSesions.length != 0 ? true : false;
         });
       })

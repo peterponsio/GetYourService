@@ -58,6 +58,6 @@ export class SettingsPage implements OnInit {
   //////RESET PASSWORD
 
   onClickResetPassword() {
-    this.visual.AlertChangePass();
+    this.visual.ReautenticateToPass();
   }
 }

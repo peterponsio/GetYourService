@@ -13,6 +13,7 @@ export class MyFavoritesPage implements OnInit {
   listAnnouncements: any;
   listFavs: any;
   currentUser: any;
+  listChats: any;
 
   constructor(
     private manage: ManageDataService,
@@ -27,7 +28,31 @@ export class MyFavoritesPage implements OnInit {
       .GetListFavorites()
       .then((data) => {
         data.valueChanges().subscribe((res) => {
-          this.listFavs = res.reverse();
+          this.listFavs = res;
+          let ee = [];
+          for (var i = this.listFavs.length - 1; i >= 0; i--) {
+            ee.push(this.listFavs[i]);
+          }
+          this.listFavs = ee;
+        });
+      })
+      .catch();
+    //COMPARE TO GET TEXT CHAT INITIALIZE
+    this.manage
+      .GetChatSessions()
+      .then((data) => {
+        data.valueChanges().subscribe((res) => {
+          this.listChats = res;
+
+          if (this.listChats != undefined && this.listChats != null) {
+            this.listFavs.forEach((favs) => {
+              this.listChats.forEach((chats) => {
+                if (chats.id_announcement == favs.id) {
+                  favs.chatOn = true;
+                }
+              });
+            });
+          }
         });
       })
       .catch();

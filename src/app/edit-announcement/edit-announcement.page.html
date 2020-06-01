@@ -20,6 +20,8 @@
         <ion-label position="floating">Announcement Tittle</ion-label>
         <ion-input
           type="text"
+          value="{{obj.tittle}}"
+          placeholder="{{obj.tittle}}"
           [(ngModel)]="announcement"
           clearInput
         ></ion-input>
@@ -68,7 +70,7 @@
         <ion-select placeholder="Citie" [(ngModel)]="location">
           <ion-select-option
             *ngFor="let citie of listCities"
-            [value]="citie.city"
+            [value]="citie.location"
             >{{citie.city}}</ion-select-option
           >
         </ion-select>

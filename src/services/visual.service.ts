@@ -443,6 +443,9 @@ export class VisualService {
                           this.autentication.CloseSesion().then((res) => {});
                         }
                       );
+                    })
+                    .catch((err) => {
+                      this.ToastMensagge("Something fail, try again");
                     });
                 } else {
                   this.ToastMensagge("Please introduce again the password");

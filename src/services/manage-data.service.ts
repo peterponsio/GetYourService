@@ -75,12 +75,11 @@ export class ManageDataService {
   }
 
   async AddAnnouncement(newAnnouncement: Announcements) {
-    let idAnnouncement = this.db.createId();
-    newAnnouncement.id = idAnnouncement;
     // newAnnouncement.Img = "deafault.jpeg";
     let myDate = new Date();
     let date = this.datePipe.transform(myDate, "dd-MM-yyyy-hh-mm");
-
+    let idAnnouncement = this.datePipe.transform(myDate, "yyyyMMddhhmmss");
+    newAnnouncement.id = "" + idAnnouncement;
     newAnnouncement.creationDate = date;
 
     ///Create the announcement inside the specific user than created
@@ -89,13 +88,13 @@ export class ManageDataService {
         "/Users/" +
           sessionStorage.getItem("user") +
           "/Announcements/" +
-          idAnnouncement
+          newAnnouncement.id
       )
       .set(newAnnouncement)
       .then((res) => {
         ///Create the announcement in the main announcements collection
         this.db
-          .doc("/Announcements/" + idAnnouncement)
+          .doc("/Announcements/" + newAnnouncement.id)
           .set(newAnnouncement)
           .then((res) => {})
           .catch((err) => {});
@@ -123,7 +122,6 @@ export class ManageDataService {
   ///////////////MAKE A FAVS COLLECTION
 
   async AddFavAnnouncement(item: Announcements) {
-    console.log(item);
     this.db
       .doc("Users/" + sessionStorage.getItem("user") + "/Favorites/" + item.id)
       .set(item)
@@ -396,7 +394,7 @@ export class ManageDataService {
 
   async DeleteOneChatSesion(sesion: Sesion) {
     ///Delete sesion
-    console.log(sesion.id);
+
     this.db
       .doc("Users/" + sessionStorage.getItem("user") + "/Chats/" + sesion.id)
       .delete();

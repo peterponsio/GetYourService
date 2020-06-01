@@ -68,7 +68,11 @@
             <ion-button (click)="Call(announcement)" color="dark">
               Call
             </ion-button>
-            <ion-button (click)="Text(announcement)" color="dark">
+            <ion-button
+              *ngIf="!announcement.chatOn"
+              (click)="Text(announcement)"
+              color="dark"
+            >
               Text
             </ion-button>
           </ion-row>

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ImagePicker } from "@ionic-native/image-picker/ngx";
+
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
@@ -14,6 +14,8 @@ import {
   DesiredAccuracyEnum,
   PositionRes,
 } from "@ionic-native/gao-de-location/ngx";
+
+import { ImagePicker } from "@ionic-native/image-picker/ngx";
 
 @Injectable({
   providedIn: "root",
