@@ -1,7 +1,7 @@
 export const firebaseConfig = {
   apiKey: "AIzaSyANrD-2fjgIopwlIno2lQ8FotuqHOeaJdA",
-  authDomain: "g-service-dc873.firebaseapp.com",
-  databaseURL: "https://g-service-dc873.firebaseio.com",
+  authDomain: "g-service-dc873.app.com",
+  databaseURL: "https://g-service-dc873.io.com",
   projectId: "g-service-dc873",
   storageBucket: "g-service-dc873.appspot.com",
   messagingSenderId: "173984271064",
