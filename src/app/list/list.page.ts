@@ -37,11 +37,22 @@ export class ListPage implements OnInit {
 
   search: string;
 
+  anonimo: boolean;
+
   ///Use on init to get all the data from firebase
   ngOnInit() {}
   ////////////////////////////////////////////////////////////////////////////////////////////////////////7
   // Use will enter to get data to
   ionViewWillEnter() {
+    if (
+      sessionStorage.getItem("anonymous") != "" &&
+      sessionStorage.getItem("anonymous") != undefined &&
+      sessionStorage.getItem("anonymous") != null
+    ) {
+      this.anonimo = true;
+    } else {
+      this.anonimo = false;
+    }
     this.manage
       .GetListAnnouncements()
       .then((data) => {
@@ -193,31 +204,47 @@ export class ListPage implements OnInit {
 
   ///////CAll client///////////////////////
   Call(item: Announcements) {
-    this.native.CallClient(item);
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.native.CallClient(item);
+    }
   }
 
   /////Text Client////////////////////////77
   Text(datos: Announcements) {
-    this.manage
-      .CreateChatSession(datos)
-      .then((res) => {})
-      .catch((err) => {});
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage
+        .CreateChatSession(datos)
+        .then((res) => {})
+        .catch((err) => {});
+    }
   }
 
   ///// FAv Item to add to a favs collection
   MakeFav(item: Announcements, index) {
-    this.manage.AddFavAnnouncement(item).then((res) => {
-      this.visual.ToastMensagge("Added to favorites");
-      this.listAnnouncements[index].fav = true;
-    });
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage.AddFavAnnouncement(item).then((res) => {
+        this.visual.ToastMensagge("Added to favorites");
+        this.listAnnouncements[index].fav = true;
+      });
+    }
   }
 
   //Unfav Item and removed from favs collection
   UnFav(item: Announcements, index) {
-    this.manage.RemoveFavorite(item).then((res) => {
-      this.visual.ToastMensagge("Removed from favorites");
-      this.listAnnouncements[index].fav = false;
-    });
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage.RemoveFavorite(item).then((res) => {
+        this.visual.ToastMensagge("Removed from favorites");
+        this.listAnnouncements[index].fav = false;
+      });
+    }
   }
 
   ///Seee info of the item
@@ -228,8 +255,12 @@ export class ListPage implements OnInit {
 
   //Report Anouncement
   Report(item: Announcements) {
-    this.manage.ReportAnnouncement(item).then((res) => {
-      this.visual.ToastMensagge("Announcement report");
-    });
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage.ReportAnnouncement(item).then((res) => {
+        this.visual.ToastMensagge("Announcement report");
+      });
+    }
   }
 }

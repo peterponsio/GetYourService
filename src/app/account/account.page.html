@@ -15,7 +15,7 @@
         <ion-col size="4"
           ><img src="./assets/gys/logo_transparent.png"
         /></ion-col>
-        <ion-col class="user_info" size="8"
+        <ion-col *ngIf="!anonimo" class="user_info" size="8"
           ><ion-row> <ion-label>{{userName}}</ion-label></ion-row
           ><ion-row> <ion-label>{{userMail}}</ion-label> </ion-row
           ><ion-row>
@@ -24,6 +24,11 @@
                 <ion-icon name="create-outline"></ion-icon> </ion-button
             ></ion-label> </ion-row
         ></ion-col>
+        <ion-col *ngIf="anonimo" class="user_info" size="8">
+          <ion-row>
+            <ion-label>Anonymous</ion-label>
+          </ion-row>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-item>

@@ -24,6 +24,8 @@ export class ItemInfoPage implements OnInit {
   userMail: string;
   date: string;
 
+  anonimo: boolean;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private manage: ManageDataService,
@@ -35,6 +37,16 @@ export class ItemInfoPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    if (
+      sessionStorage.getItem("anonymous") != "" &&
+      sessionStorage.getItem("anonymous") != undefined &&
+      sessionStorage.getItem("anonymous") != null
+    ) {
+      this.anonimo = true;
+    } else {
+      this.anonimo = false;
+    }
+
     this.activatedRoute.params.subscribe((params) => {
       this.itemData = JSON.parse(params["data"]);
       console.log(this.itemData);
@@ -53,35 +65,51 @@ export class ItemInfoPage implements OnInit {
 
   ///////CAll client///////////////////////
   Call() {
-    this.native.CallClient(this.itemData);
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.native.CallClient(this.itemData);
+    }
   }
 
   /////Text Client////////////////////////77
   Text() {
-    this.manage
-      .CreateChatSession(this.itemData)
-      .then((res) => {
-        console.log("done");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage
+        .CreateChatSession(this.itemData)
+        .then((res) => {
+          console.log("done");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   ///// FAv Item to add to a favs collection
   MakeFav() {
-    this.manage.AddFavAnnouncement(this.itemData).then((res) => {
-      this.visual.ToastMensagge("Added to favorites");
-      this.fav = true;
-    });
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage.AddFavAnnouncement(this.itemData).then((res) => {
+        this.visual.ToastMensagge("Added to favorites");
+        this.fav = true;
+      });
+    }
   }
 
   //Unfav Item and removed from favs collection
   UnFav() {
-    this.manage.RemoveFavorite(this.itemData).then((res) => {
-      this.visual.ToastMensagge("Removed from favorites");
-      this.fav = false;
-    });
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.manage.RemoveFavorite(this.itemData).then((res) => {
+        this.visual.ToastMensagge("Removed from favorites");
+        this.fav = false;
+      });
+    }
   }
   ///Go back to refresh list
 

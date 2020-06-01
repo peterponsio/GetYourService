@@ -7,8 +7,29 @@ import { Component } from "@angular/core";
 })
 export class TabsPage {
   notifications: string;
+  anonimo: boolean;
 
-  constructor() {}
+  constructor() {
+    if (
+      sessionStorage.getItem("anonymous") != "" &&
+      sessionStorage.getItem("anonymous") != undefined &&
+      sessionStorage.getItem("anonymous") != null
+    ) {
+      this.anonimo = true;
+    } else {
+      this.anonimo = false;
+    }
+  }
 
-  ionViewWillEnter() {}
+  ionViewWillEnter() {
+    if (
+      sessionStorage.getItem("anonymous") != "" &&
+      sessionStorage.getItem("anonymous") != undefined &&
+      sessionStorage.getItem("anonymous") != null
+    ) {
+      this.anonimo = true;
+    } else {
+      this.anonimo = false;
+    }
+  }
 }

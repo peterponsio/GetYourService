@@ -4,11 +4,11 @@
       <ion-icon name="layers-outline"></ion-icon>
     </ion-tab-button>
 
-    <ion-tab-button tab="add-item">
+    <ion-tab-button *ngIf="!anonimo" tab="add-item">
       <ion-icon name="duplicate-outline"></ion-icon>
     </ion-tab-button>
 
-    <ion-tab-button tab="chats">
+    <ion-tab-button tab="chats" *ngIf="!anonimo">
       <ion-badge class="badge" color="dark">99</ion-badge>
       <ion-icon name="chatbox-ellipses-outline"></ion-icon>
     </ion-tab-button>

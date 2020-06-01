@@ -10,6 +10,7 @@ import { stat } from "fs";
 })
 export class SettingsPage implements OnInit {
   dm: boolean;
+  anonimo: boolean;
 
   constructor(
     private autentication: AutenticationService,
@@ -21,6 +22,12 @@ export class SettingsPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    if (
+      sessionStorage.getItem("anonymous") != "" ||
+      sessionStorage.getItem("anonymous") != undefined
+    ) {
+      this.anonimo = true;
+    }
     let dark = JSON.parse(sessionStorage.getItem("userInfo"));
     if (dark.darkMode == true) {
       console.log("entro");

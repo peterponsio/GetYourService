@@ -118,7 +118,11 @@ const routes: Routes = [
   {
     path: 'error-informs',
     loadChildren: () => import('./error-informs/error-informs.module').then( m => m.ErrorInformsPageModule)
+  },  {
+    path: 'modal-edit-user',
+    loadChildren: () => import('./modal-edit-user/modal-edit-user.module').then( m => m.ModalEditUserPageModule)
   },
+
 ];
 @NgModule({
   imports: [

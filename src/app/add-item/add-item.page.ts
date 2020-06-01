@@ -124,7 +124,7 @@ export class AddItemPage implements OnInit {
   onClickGetCurrentLocation() {
     alert("dsada");
     this.native.GetCurrentLocation().then((data) => {
-      this.visual.AlertMens(data + "datos ");
+      alert(data);
     });
   }
 }

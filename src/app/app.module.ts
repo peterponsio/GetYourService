@@ -31,7 +31,9 @@ import { EmailSupportPage } from "./email-support/email-support.page";
 import { GoogleMap } from "@ionic-native/google-maps/ngx";
 import { ErrorInformsPage } from "./error-informs/error-informs.page";
 import { UserIdeasPage } from "./user-ideas/user-ideas.page";
-import { GaoDeLocation } from "@ionic-native/gao-de-location/ngx";
+
+import { ModalEditUserPage } from "./modal-edit-user/modal-edit-user.page";
+import { GaoDeLocation } from "cordova-plugin-gaodelocation-chenyu/ionic/gao-de-location/ngx";
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { GaoDeLocation } from "@ionic-native/gao-de-location/ngx";
     EmailSupportPage,
     ErrorInformsPage,
     UserIdeasPage,
+    ModalEditUserPage,
   ],
   entryComponents: [
     PopoverPage,
@@ -54,6 +57,7 @@ import { GaoDeLocation } from "@ionic-native/gao-de-location/ngx";
     EmailSupportPage,
     ErrorInformsPage,
     UserIdeasPage,
+    ModalEditUserPage,
   ],
   imports: [
     BrowserModule,
@@ -69,13 +73,12 @@ import { GaoDeLocation } from "@ionic-native/gao-de-location/ngx";
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ImagePicker,
+
     CallNumber,
     AngularFireStorage,
     Geolocation,
     DatePipe,
     EmailComposer,
-
-    GaoDeLocation,
   ],
   bootstrap: [AppComponent],
 })

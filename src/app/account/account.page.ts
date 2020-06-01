@@ -9,8 +9,10 @@ import { Router } from "@angular/router";
   styleUrls: ["./account.page.scss"],
 })
 export class AccountPage implements OnInit {
-  userMail: String;
-  userName: String;
+  userMail: string;
+  userName: string;
+
+  anonimo: boolean;
 
   constructor(
     private autenticacion: AutenticationService,
@@ -24,6 +26,18 @@ export class AccountPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    if (
+      sessionStorage.getItem("anonymous") != "" &&
+      sessionStorage.getItem("anonymous") != undefined &&
+      sessionStorage.getItem("anonymous") != null
+    ) {
+      this.anonimo = true;
+    } else {
+      this.anonimo = false;
+    }
+
+    console.log(this.anonimo);
+
     let userData = JSON.parse(sessionStorage.getItem("userInfo"));
     this.userMail = userData.mail;
     this.userName = userData.name;
@@ -37,20 +51,48 @@ export class AccountPage implements OnInit {
     });
   }
   onClickMyAnnoncements() {
-    this.router.navigateByUrl("my-announcements");
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.router.navigateByUrl("my-announcements");
+    }
   }
 
   onClickMyFavorites() {
-    this.router.navigateByUrl("my-favorites");
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.router.navigateByUrl("my-favorites");
+    }
   }
 
   onClickSettings() {
-    this.router.navigateByUrl("settings");
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.router.navigateByUrl("settings");
+    }
   }
   onClickTerms() {
     this.router.navigateByUrl("terms-and-conditions");
   }
   onClickHelp() {
-    this.router.navigateByUrl("help");
+    if (this.anonimo == true) {
+      this.visual.Anonymous();
+    } else {
+      this.router.navigateByUrl("help");
+    }
+  }
+
+  onClickEditProfile() {
+    this.visual.ModalEditUser(this.userMail, this.userName).then((res) => {
+      console.log(res);
+      this.autenticacion
+        .ChangeUserAndMail(res.newUser, res.newMail)
+        .then((res) => {
+          this.autenticacion.CloseSesion();
+        });
+      this.visual.ToastMensagge("Saved changes");
+    });
   }
 }

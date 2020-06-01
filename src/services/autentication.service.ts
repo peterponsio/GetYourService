@@ -119,6 +119,12 @@ export class AutenticationService {
     body.classList.remove("dark");
   }
 
+  async LogInAnonyous() {
+    this.aut.auth.signInAnonymously().then((res) => {
+      sessionStorage.setItem("anonymous", res.user.uid);
+    });
+  }
+
   /////Change password
 
   async ChangePassword(newPass: string) {
@@ -126,6 +132,19 @@ export class AutenticationService {
     user.updatePassword(newPass).catch((err) => {
       alert("Sensitive Operation, log in again");
     });
+  }
+
+  ///Change Mail
+
+  async ChangeUserAndMail(userName: string, mail: string) {
+    var user = firebase.auth().currentUser;
+    user.updateEmail(mail).catch((err) => {
+      alert("Sensitive Operation, log in again");
+    });
+    let userLog = JSON.parse(sessionStorage.getItem("userInfo"));
+    userLog.name = userName;
+    userLog.mail = mail;
+    this.db.doc("Users/" + sessionStorage.getItem("user")).update(userLog);
   }
 
   ////Set DARK MODE

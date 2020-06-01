@@ -19,6 +19,7 @@ import { TickedsPage } from "src/app/tickeds/tickeds.page";
 import { EmailSupportPage } from "src/app/email-support/email-support.page";
 import { UserIdeasPage } from "src/app/user-ideas/user-ideas.page";
 import { ErrorInformsPage } from "src/app/error-informs/error-informs.page";
+import { ModalEditUserPage } from "src/app/modal-edit-user/modal-edit-user.page";
 
 @Injectable({
   providedIn: "root",
@@ -170,6 +171,48 @@ export class VisualService {
       ],
     });
     alert.present();
+  }
+
+  async Anonymous() {
+    const alert = await this.alertController.create({
+      header: "You are log in anonymous: ",
+
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            alert.dismiss();
+          },
+        },
+        {
+          text: "Log in",
+          handler: () => {
+            this.router.navigateByUrl("login");
+          },
+        },
+        {
+          text: "Create Account",
+          handler: () => {
+            this.router.navigateByUrl("register");
+          },
+        },
+      ],
+    });
+    alert.present();
+  }
+
+  async ModalEditUser(mail: string, user: string) {
+    const modal = await this.modalController.create({
+      componentProps: { user: user, mail: mail },
+      component: ModalEditUserPage,
+    });
+    modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    return data;
   }
 
   ////Edit announcements MODAL
