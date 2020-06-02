@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .container-Regis {
   margin: 100 auto;
 }
@@ -71,3 +72,78 @@ div ion-button {
   z-index: 1000;
   bottom: 2.5em;
 }
+=======
+.container-Regis {
+  margin: 100 auto;
+}
+
+.container-Regis ion-card {
+  margin-top: 3em;
+}
+
+ion-card p {
+  text-align: center;
+  align-content: center;
+  font-weight: 700;
+  font-size: x-large;
+  font-family: sans-serif;
+}
+
+// .logo_img img{
+//     height: 15em;
+//     width: 15em;
+//     align-content: center;
+//     text-align: center;
+// }
+.logo_img {
+  margin: 0 auto;
+  align-content: center;
+  text-align: center;
+  height: 25em;
+}
+div {
+  position: relative;
+  width: 100%;
+  height: 2em;
+}
+a {
+  margin-top: 1em;
+  list-style: none;
+  text-decoration: none;
+  align-content: flex-end;
+  margin-right: 0;
+  position: absolute;
+  right: 1em;
+}
+div ion-button {
+  text-align: center;
+  align-content: center;
+  margin-left: 40%;
+}
+.invalidField {
+  height: 1.6em;
+
+  border-radius: 2em;
+  color: black;
+  background-color: whitesmoke;
+  align-content: center;
+  text-align: center;
+}
+
+.infoIcon {
+  border: 2px solid red;
+  left: 0;
+  position: absolute;
+  margin-left: 5px;
+  border-radius: 5px;
+  margin-top: 1px;
+}
+.seepass {
+  position: absolute;
+  right: 1em;
+  height: 2em;
+  width: 2em;
+  z-index: 1000;
+  bottom: 2.5em;
+}
+>>>>>>> Add picture ok

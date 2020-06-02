@@ -1,8 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
+<<<<<<< HEAD
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>G-SERVICE</name>
     <description>Get your service by the easy way</description>
     <author email="pedrodeveloperera@gmail.com" href="http://perera.com.es/">Perera Developers</author>
+=======
+<widget id="com.DaWaFoOdIe" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Get Your Service</name>
+    <description>Get Your Service by the easy way</description>
+    <author email="pedrodeveloperera@gmail.com" href="http://ionicframework.com/">GYS TEAM</author>
+>>>>>>> Add picture ok
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -25,7 +32,11 @@
         </edit-config>
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
+<<<<<<< HEAD
         <icon density="ldpi" src="resources/android/icon/ldpi.png" />
+=======
+         <icon density="ldpi" src="resources/android/icon/ldpi.png" />
+>>>>>>> Add picture ok
         <icon density="mdpi" src="resources/android/icon/mdpi.png" />
         <icon density="hdpi" src="resources/android/icon/hdpi.png" />
         <icon density="xhdpi" src="resources/android/icon/xhdpi.png" />

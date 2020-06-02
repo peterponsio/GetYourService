@@ -6,7 +6,11 @@ import {
 import { Users } from "src/interfaces/users";
 import { Announcements } from "src/interfaces/announcements";
 import { EmailComposer } from "@ionic-native/email-composer/ngx";
+<<<<<<< HEAD
 import { Menssage } from "src/app/menssage";
+=======
+
+>>>>>>> Add picture ok
 import { Chat } from "src/interfaces/chat";
 import { Sesion } from "src/interfaces/sesion";
 import { DatePipe, JsonPipe } from "@angular/common";
@@ -369,7 +373,11 @@ export class ManageDataService {
   ///Get all sesion mensagges  of the user
 
   async GetChatMensagges(sesion_id: string) {
+<<<<<<< HEAD
     let sesionData: AngularFirestoreCollection = this.db.collection<Menssage>(
+=======
+    let sesionData: AngularFirestoreCollection = this.db.collection<Chat>(
+>>>>>>> Add picture ok
       "Users/" +
         sessionStorage.getItem("user") +
         "/Chats/" +
