@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar class="tools">
+    <ion-buttons slot="start">
+      <ion-back-button>Back</ion-back-button>
+    </ion-buttons>
+    <h4 style="text-align: center;">My Favorites</h4>
+    <ion-icon
+      class="deletefavs"
+      name="trash-bin-outline"
+      slot="end"
+      (click)="onClickDeleteFavs()"
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="container-list">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  -->
+  <ion-list class="items">
+    <ion-item-sliding
+      class="slide"
+      *ngFor="let announcement of listFavs;let i=index"
+    >
+      <ion-item class="item" *ngIf="currentUser!=announcement.userId">
+        <ion-img
+          *ngIf="announcement.Img=='defaultImg.png'"
+          class="item_img"
+          src="./assets/gys/logo_transparent.png"
+          alt="Announcement image"
+        >
+        </ion-img>
+        <ion-img
+          *ngIf="announcement.Img!='defaultImg.png'"
+          class="item_img"
+          [src]="announcement.Img"
+          alt="Announcement image"
+        >
+        </ion-img>
+        <ion-grid fixed>
+          <ion-row>
+            <div class="info_items">
+              <h6>{{announcement.tittle}}</h6>
+              <p>{{announcement.price}} €</p>
+              <p>{{announcement.description}}</p>
+              <span class="more_info">
+                <p>Categorie : {{announcement.categorie}}</p>
+                <p>Location: {{announcement.Location}}</p>
+              </span>
+            </div>
+
+            <ion-icon
+              *ngIf="!announcement.fav"
+              class="like"
+              name="heart"
+              (click)="UnFav(announcement,i)"
+            ></ion-icon>
+          </ion-row>
+          <ion-row class="item_buttons">
+            <ion-button (click)="Call(announcement)" color="dark">
+              Call
+            </ion-button>
+            <ion-button
+              *ngIf="!announcement.chatOn"
+              (click)="Text(announcement)"
+              color="dark"
+            >
+              Text
+            </ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="end" class="report">
+        <ion-item-option (click)="Report(announcement)" color="danger"
+          >Report</ion-item-option
+        >
+        <!-- <ion-item-option (click)="DontShowAgain(item)" color="warning"
+          >Dont show again</ion-item-option
+        > -->
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!--  -->
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- <ion-fab
+    id="add_button"
+    class="float_button"
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+  >
+    <ion-fab-button>
+      <ion-icon name="duplicate-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+</ion-content>

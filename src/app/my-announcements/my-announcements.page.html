@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar class="tools">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <h4 style="text-align: center;">My Announcements</h4>
+    <ion-icon
+      class="deletefavs"
+      name="trash-bin-outline"
+      slot="end"
+      (click)="onClickDeleteAnnouncements()"
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="container-list">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--  -->
+  <ion-list class="items">
+    <ion-item-sliding
+      class="slide"
+      *ngFor="let announcement of listAnnouncements;let i=index"
+    >
+      <ion-item class="item" *ngIf="currentUser!=announcement.userId">
+        <ion-img
+          *ngIf="announcement.Img=='defaultImg.png'"
+          class="item_img"
+          src="./assets/gys/logo_transparent.png"
+          alt="Announcement image"
+        >
+        </ion-img>
+        <ion-img
+          *ngIf="announcement.Img!='defaultImg.png'"
+          class="item_img"
+          [src]="announcement.Img"
+          alt="Announcement image"
+        >
+        </ion-img>
+        <ion-grid fixed>
+          <ion-row>
+            <div class="info_items">
+              <h6>{{announcement.tittle}}</h6>
+              <p>{{announcement.price}} €</p>
+              <p>{{announcement.description}}</p>
+              <span class="more_info">
+                <p>Categorie : {{announcement.categorie}}</p>
+                <p>Location: {{announcement.Location}}</p>
+              </span>
+            </div>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="end" class="report">
+        <ion-item-option (click)="Delete(announcement)" color="danger"
+          >Delete</ion-item-option
+        >
+        <ion-item-option (click)="Edit(announcement)" color="warning"
+          >Edit</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!--  -->
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- <ion-fab
+    id="add_button"
+    class="float_button"
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+  >
+    <ion-fab-button>
+      <ion-icon name="duplicate-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+</ion-content>

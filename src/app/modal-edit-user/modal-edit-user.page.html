@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon
+      slot="end"
+      class="close"
+      name="close-outline"
+      (click)="onClickCloseModal()"
+    ></ion-icon>
+    <ion-title>User Name: {{user}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed class="header">
+    <ion-row>
+      <ion-col size="4"
+        ><img src="./assets/gys/logo_transparent.png"
+      /></ion-col>
+      <ion-col *ngIf="!anonimo" class="user_info" size="8">
+        <ion-row>
+          <ion-item>
+            <ion-label>User</ion-label>
+            <ion-input
+              type="text"
+              placeholder="user name"
+              [(ngModel)]="newUser"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label>Mail</ion-label>
+            <ion-input
+              type="email"
+              placeholder="user mail"
+              [(ngModel)]="newMail"
+            ></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-input
+              type="password"
+              placeholder="Password need it"
+              [(ngModel)]="pass"
+            ></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-label>
+            <ion-button (click)="onClickEditProfile()" color="dark">
+              <ion-icon name="checkmark-done-outline"></ion-icon>
+            </ion-button>
+          </ion-label>
+        </ion-row>
+      </ion-col>
+    </ion-row> </ion-grid
+></ion-content>

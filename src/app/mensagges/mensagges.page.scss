@@ -1,0 +1,86 @@
+.data {
+  height: 4em;
+  width: 100%;
+}
+
+.data ion-img {
+  height: 4em;
+}
+
+.data p {
+  text-align: center;
+}
+
+.sender {
+  background-color: greenyellow;
+  color: black;
+  position: absolute;
+  left: 0;
+  width: 90%;
+  height: fit-content;
+  border-radius: 1em;
+  border: 1px solid greenyellow;
+  min-height: 3.5em;
+  overflow-wrap: break-word;
+}
+.receiver {
+  background-color: black;
+  color: blanchedalmond;
+  position: absolute;
+  right: 0;
+  width: 90%;
+  overflow-wrap: break-word;
+  border-radius: 1em;
+  min-height: 3.5em;
+  border: 1px solid black;
+}
+.receiver * {
+  margin-left: 1px;
+  margin-top: 2px;
+  float: left;
+}
+.sender * {
+  padding-left: 1px;
+  padding-top: 2px;
+  float: left;
+}
+
+.items {
+  margin-top: 0.3em;
+  height: fit-content;
+
+  min-height: 4em;
+}
+
+.items * {
+  margin-top: 2px;
+}
+.sendInput {
+  width: 90%;
+  overflow-wrap: break-word;
+  height: fit-content;
+  min-height: 3em;
+}
+
+.sendButton {
+  background-color: transparent;
+  width: 10%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 3.5em;
+}
+
+.footer {
+  height: 3.5em;
+  border-top: 1px solid black;
+}
+.mensa * {
+  margin-top: 1em;
+  font-size: medium;
+  margin-bottom: 1em;
+}
+.mensa {
+  margin-bottom: 3em;
+  height: fit-content;
+}

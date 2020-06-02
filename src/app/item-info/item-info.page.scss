@@ -1,0 +1,36 @@
+.imgInfo {
+  width: 100%;
+  align-content: center;
+  text-align: center;
+  height: 12em;
+}
+.card {
+  border-radius: 5px;
+}
+
+.header {
+  width: 100%;
+}
+.like {
+  position: absolute;
+  top: 0.5em;
+  right: 2em;
+  z-index: 1000;
+  height: 1.8em;
+  width: 1.8em;
+}
+.item_buttons * {
+  float: left;
+  width: 10em;
+}
+.item_buttons {
+  align-content: center;
+  margin: 0 auto;
+  margin-left: 1.5em;
+}
+
+.back {
+  width: 1.5em;
+  height: 1.5em;
+  margin-left: 5px;
+}

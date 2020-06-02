@@ -1,126 +1,127 @@
-import { Users } from './../model/user.interface';
-import { AutenticacionesService } from './../servicios/autenticaciones.service';
-import { Component, OnInit } from '@angular/core';
-import { User } from 'firebase';
-import { VisualesService } from './../servicios/visuales.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AutenticationService } from "src/services/autentication.service";
+import { Users } from "src/interfaces/users";
+import { VisualService } from "src/services/visual.service";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: "app-register",
+  templateUrl: "./register.page.html",
+  styleUrls: ["./register.page.scss"],
 })
 export class RegisterPage implements OnInit {
+  inputName: String;
+  inputMail: String;
+  inputPassword: String;
+  terms: Boolean;
 
-  gname: string;
-  gmail: string;
-  gpass1: string;
-  gpass2: string;
-  gall: string;
+  inputNameInvalid: Boolean;
+  inputMailInvalid: Boolean;
+  inputPasswordInvalid: Boolean;
+  inputTermsInvalid: Boolean;
+  errorMensg: string;
 
-  name: string;
-  email: string;
-  password1: string;
-  password2: string;
+  seePasswd: boolean;
+  type: string;
 
-  newUser:Users={
-    id:"",
-    name:"",
-    mail:"",
-    password:"",
-    restaurants:"",
+  constructor(
+    private navigate: Router,
+    private autentication: AutenticationService,
+    private visual: VisualService
+  ) {
+    this.inputNameInvalid = false;
+    this.inputMailInvalid = false;
+    this.inputPasswordInvalid = false;
+    this.seePasswd = false;
+    this.type = "password";
   }
 
+  ////Interface USERS///
 
-  constructor(private auSer: AutenticacionesService, private visuSer: VisualesService, private ruta: Router) { 
+  user: Users = {
+    id: "",
+    name: "",
+    mail: "",
+    password: "",
+    credits: 0,
+    darkMode: false,
+  };
 
-    this.name = "";
-    this.email = "";
-    this.password1 = "";
-    this.password2 = "";
-   
-   
-    this.gall = "";
+  ngOnInit() {}
 
-    this.gmail = "";
-    this.gpass1 = "";
-    this.gpass2 = "";
-    this.gname = "";
+  // SING UP CALL METHOD USING AUTENTICATION SERVICE
 
-  }
+  onClickSingUp() {
+    if (
+      this.inputName !== "" &&
+      this.inputName != undefined &&
+      this.inputName != null &&
+      this.inputMail != undefined &&
+      this.inputMail != "" &&
+      this.inputPassword != "" &&
+      this.inputPassword != undefined &&
+      this.terms != null &&
+      this.terms != undefined
+    ) {
+      this.user.name = this.inputName;
+      this.user.mail = this.inputMail;
+      this.user.password = this.inputPassword;
 
-  ngOnInit() {
-  }
+      this.inputTermsInvalid = false;
+      this.inputNameInvalid = false;
+      this.inputMailInvalid = false;
+      this.inputPasswordInvalid = false;
 
-  Reg() {
-    if (this.email == "" && this.password1 == "" && this.password2=="" && this.name=="") {
-
-      this.gall = "Fill the fields correctly";
-      this.gpass1 = "";
-      this.gmail = "";
-      this.gpass2 = "";
-      this.gname = "";
-
-    } else if (this.email == "") {
-
-
-      this.gall = "";
-      this.gpass1 = "";
-      this.gmail = " Fill the mail correctly";
-      this.gpass2 = "";
-      this.gname = "";
-
-     
-
-    } else if (this.password1 == "") {
-
-      this.gall = "";
-      this.gpass1 = "Fill the password correctly";
-      this.gmail = "";
-      this.gpass2 = "";
-      this.gname = "";
-      
-
-    } else if(this.password2==""){
-     
-      this.gall = "";
-      this.gpass1 = "";
-      this.gmail = "";
-      this.gpass2 = "The password dont match please try again";
-      this.gname = "";
-
-    }else if(this.name==""){
-
-      this.gall = "";
-      this.gpass1 = "";
-      this.gmail = "";
-      this.gpass2 = "";
-      this.gname = "Fill the user name please";
-
-    }else if( this.password2==this.password2){
-     
-      this.newUser.id="";
-      this.newUser.name=this.name;
-      this.newUser.mail=this.email;
-      this.newUser.password=this.password2;
-    
-      
-      this.auSer.CreateUser(this.newUser)
-        .then((datos) => {
-         
-          console.log(datos);
-          
-          this.ruta.navigateByUrl("/tabs");
-
-        }).catch(error => {
-
-          console.log(error);
-          this.visuSer.presentToast("Failed to create");
-
-        });
-
-
+      this.autentication
+        .SingUP(this.user)
+        .then((res) => {
+          this.navigate.navigateByUrl("/tabs");
+          this.inputNameInvalid = false;
+        })
+        .catch((err) => {});
+    } else if (
+      this.inputName == "" ||
+      this.inputName == undefined ||
+      this.inputName == null
+    ) {
+      this.inputMailInvalid = false;
+      this.inputPasswordInvalid = false;
+      this.inputNameInvalid = true;
+      this.inputTermsInvalid = false;
+    } else if (
+      this.inputMail == undefined ||
+      this.inputMail == null ||
+      this.inputMail == "" ||
+      !this.inputMail.includes("@") ||
+      !this.inputMail.includes(".")
+    ) {
+      this.inputMailInvalid = true;
+      this.inputPasswordInvalid = false;
+      this.inputNameInvalid = false;
+      this.inputTermsInvalid = false;
+    } else if (
+      this.inputPassword == "" ||
+      this.inputPassword == undefined ||
+      this.inputPassword == null ||
+      this.inputPassword.length < 6
+    ) {
+      this.inputMailInvalid = false;
+      this.inputPasswordInvalid = true;
+      this.inputNameInvalid = false;
+      this.inputTermsInvalid = false;
+    } else if (this.terms == null || this.terms == undefined) {
+      this.inputMailInvalid = false;
+      this.inputPasswordInvalid = false;
+      this.inputNameInvalid = false;
+      this.inputTermsInvalid = true;
     }
   }
-
+  onClickSeePass() {
+    this.seePasswd = !this.seePasswd;
+    if (this.seePasswd) {
+      this.type = "text";
+    } else {
+      this.type = "password";
+    }
+  }
 }

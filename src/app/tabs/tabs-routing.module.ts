@@ -1,49 +1,72 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { TabsPage } from "./tabs.page";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: "list",
         children: [
           {
-            path: '',
+            path: "",
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
-          }
-        ]
+              import("../list/list.module").then((m) => m.ListPageModule),
+          },
+        ],
       },
       {
-        path: 'tab2',
+        path: "add-item",
         children: [
           {
-            path: '',
+            path: "",
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-          }
-        ]
+              import("../add-item/add-item.module").then(
+                (m) => m.AddItemPageModule
+              ),
+          },
+        ],
       },
-   
       {
-        path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+        path: "chats",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("../chats/chats.module").then((m) => m.ChatsPageModule),
+          },
+        ],
+      },
+      {
+        path: "account",
+        children: [
+          {
+            path: "",
+            loadChildren: () =>
+              import("../account/account.module").then(
+                (m) => m.AccountPageModule
+              ),
+          },
+        ],
+      },
+      {
+        path: "",
+        redirectTo: "/tabs/list",
+        pathMatch: "full",
+      },
+    ],
   },
   {
-    path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    path: "",
+    redirectTo: "/tabs/list",
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class TabsPageRoutingModule {}

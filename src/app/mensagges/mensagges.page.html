@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <h5 style="text-align: center;">{{receiver_userName}}</h5>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="data">
+    <ion-img
+      *ngIf="img!='defaultImg.png'"
+      src="{{img}}"
+      alt="sesion img"
+      class="conver_img"
+    ></ion-img>
+    <ion-img
+      *ngIf="img=='defaultImg.png'"
+      class="conver_img"
+      src="./assets/gys/logo_transparent.png"
+      alt="sesion image"
+    ></ion-img>
+  </div>
+
+  <div class="chat">
+    <div class="noMensagges" *ngIf="!mensagges">
+      <h1>Any mensagge yet start tipying</h1>
+    </div>
+    <ion-list *ngIf="mensagges" class="mensa">
+      <div *ngFor="let mensagge of listMensagges" class="items">
+        <ion-item
+          class="sender"
+          lines="none"
+          *ngIf="currentUser==mensagge.id_sender"
+        >
+          {{mensagge.content}}
+        </ion-item>
+        <ion-item
+          class="receiver"
+          lines="none"
+          *ngIf="currentUser!=mensagge.id_sender"
+        >
+          {{mensagge.content}}
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
+
+<div class="footer">
+  <ion-input
+    (keyup)="Tiping()"
+    class="sendInput"
+    type="text"
+    placeholder="Write your mensagge"
+    [(ngModel)]="text"
+  ></ion-input>
+  <ion-icon
+    *ngIf="enableSend"
+    class="sendButton"
+    slot="end"
+    name="send-outline"
+  ></ion-icon>
+  <ion-icon
+    *ngIf="!enableSend"
+    class="sendButton"
+    slot="end"
+    name="send-outline"
+    (click)="onClickSend()"
+  ></ion-icon>
+</div>

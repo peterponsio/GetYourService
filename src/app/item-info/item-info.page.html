@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon
+      name="chevron-back-outline"
+      slot="start"
+      class="back"
+      (click)="onClickBack()"
+    ></ion-icon>
+    <ion-title style="text-align: center;">{{tittle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card">
+    <ion-card-header class="header">
+      <img
+        *ngIf="img=='defaultImg.png'"
+        class="imgInfo"
+        src="./assets/gys/logo_transparent.png"
+      />
+      <img *ngIf="img!='defaultImg.png'" class="imgInfo" src="{{img}}" />
+    </ion-card-header>
+    <ion-card-content style="border-top: 2px solid transparent;">
+      <h6 style="color: red;">{{price}} €</h6>
+      <p>{{tittle}}</p>
+      <p>{{date}} · {{location}}</p>
+      <ion-icon
+        *ngIf="!fav"
+        class="like"
+        name="heart-outline"
+        (click)="MakeFav(itemData,i)"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="fav"
+        class="like"
+        name="heart"
+        (click)="UnFav(itemData,i)"
+      ></ion-icon>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-subtitle>Description:</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{descripcion}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{userName}}</ion-card-title>
+      <ion-card-subtitle>{{userMail}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <div class="item_buttons">
+    <ion-button (click)="Call(announcement)" color="dark">
+      Call
+    </ion-button>
+    <ion-button (click)="Text(announcement)" color="dark">
+      Text
+    </ion-button>
+  </div>
+</ion-content>

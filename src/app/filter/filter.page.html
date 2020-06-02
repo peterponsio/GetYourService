@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon
+      class="close"
+      slot="start"
+      name="close"
+      (click)="onClickClose()"
+    ></ion-icon>
+    <ion-title style="text-align: center;">Filters</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-button (click)="onClickClear()" color="dark" class="clean">
+      Clear
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="filters">
+  <ion-searchbar
+    showCancelButton="focus"
+    placeholder="What are you looking for?"
+    [(ngModel)]="search"
+  ></ion-searchbar>
+
+  <ion-item>
+    <ion-label>Categorie</ion-label>
+    <ion-select
+      [(ngModel)]="categorie"
+      [interfaceOptions]="customPopoverOptions"
+      interface="popover"
+      placeholder="Select One"
+    >
+      <ion-select-option
+        *ngFor="let categorie of listCategories"
+        [value]="categorie.categorie"
+        >{{categorie.categorie}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Location</ion-label>
+    <ion-select
+      placeholder="Citie"
+      [(ngModel)]="location"
+      [interfaceOptions]="OptionsLocation"
+    >
+      <ion-select-option *ngFor="let citie of listCities" [value]="citie.city"
+        >{{citie.city}}</ion-select-option
+      >
+    </ion-select>
+  </ion-item>
+
+  <ion-label>Caracteristics</ion-label>
+  <ion-item>
+    <ion-label>Price low</ion-label>
+    <ion-input
+      type="number"
+      [(ngModel)]="priceLow"
+      maxlength="10"
+      clearInput
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Price Max</ion-label>
+    <ion-input
+      type="number"
+      [(ngModel)]="priceMax"
+      maxlength="10"
+      clearInput
+    ></ion-input>
+  </ion-item>
+
+  <ion-button (click)="onClickApply()" color="dark">
+    <ion-icon name="funnel-outline"></ion-icon>
+    Apply
+  </ion-button>
+</ion-content>

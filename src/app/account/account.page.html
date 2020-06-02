@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="Acc">
+  <ion-item>
+    <ion-grid fixed class="header">
+      <ion-row>
+        <ion-col size="4"
+          ><img src="./assets/gys/logo_transparent.png"
+        /></ion-col>
+        <ion-col *ngIf="!anonimo" class="user_info" size="8"
+          ><ion-row> <ion-label>{{userName}}</ion-label></ion-row
+          ><ion-row> <ion-label>{{userMail}}</ion-label> </ion-row
+          ><ion-row>
+            <ion-label
+              ><ion-button (click)="onClickEditProfile()" color="dark">
+                <ion-icon name="create-outline"></ion-icon> </ion-button
+            ></ion-label> </ion-row
+        ></ion-col>
+        <ion-col *ngIf="anonimo" class="user_info" size="8">
+          <ion-row>
+            <ion-label>Anonymous</ion-label>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-list class="options">
+    <ion-item (click)="onClickMyAnnoncements()">
+      <ion-icon name="folder-open-outline"></ion-icon>
+      <ion-label>My announcements</ion-label>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item (click)="onClickMyFavorites()">
+      <ion-icon name="heart-half-outline"></ion-icon>
+      <ion-label>My favs</ion-label>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item (click)="onClickSettings()">
+      <ion-icon name="construct-outline"></ion-icon>
+      <ion-label>Setting</ion-label>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item (click)="onClickTerms()">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <ion-label>Terms</ion-label>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item (click)="onClickHelp()">
+      <ion-icon name="help-outline"></ion-icon>
+      <ion-label>Help</ion-label>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item (click)="onClickCloseSesion()">
+      <ion-icon name="exit-outline"></ion-icon>
+      <ion-label>Close Sesion</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

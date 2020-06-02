@@ -1,107 +1,100 @@
-import { AutenticacionesService } from './../servicios/autenticaciones.service';
-import { Component, OnInit } from '@angular/core';
-import { VisualesService } from './../servicios/visuales.service';
-import { Route } from '@angular/compiler/src/core';
-import { Router } from '@angular/router';
-import { Users } from '../model/user.interface';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Users } from "src/interfaces/users";
+import { AutenticationService } from "src/services/autentication.service";
+import { VisualService } from "src/services/visual.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
+  inputMail: String;
+  inputPassword: String;
 
+  inputNameInvalid: Boolean;
+  inputMailInvalid: Boolean;
+  inputPasswordInvalid: Boolean;
 
-  gmail:string;
-  gpass:string;
-  gall: string;
+  seePasswd: boolean;
+  type: string;
 
-  mail:string;
-  password:string;
-
-  newUser:Users={
-    id:"",
-    name:"",
-    mail:"",
-    password:"",
-    restaurants:"",
+  constructor(
+    private navigate: Router,
+    private autentication: AutenticationService,
+    private visual: VisualService
+  ) {
+    this.inputMailInvalid = false;
+    this.inputPasswordInvalid = false;
+    this.seePasswd = false;
+    this.type = "password";
   }
 
-  
+  ngOnInit() {}
 
-  constructor(private auSer: AutenticacionesService, private visuSer: VisualesService, private ruta: Router) { 
+  ////Interface USERS///
 
-    this.mail="";
-    this.password="";
-    this.gall="";
+  user: Users = {
+    id: "",
+    name: "",
+    mail: "",
+    password: "",
+    credits: 0,
+    darkMode: false,
+  };
 
-    this.gmail="";
-    this.gpass="";
-
+  onClickSingIn() {
+    if (
+      this.inputMail !== undefined &&
+      this.inputMail !== null &&
+      this.inputMail !== "" &&
+      this.inputMail.includes("@") &&
+      this.inputMail.includes(".") &&
+      this.inputPassword !== "" &&
+      this.inputPassword !== undefined &&
+      this.inputPassword.length >= 6
+    ) {
+      this.user.name = this.user.mail = this.inputMail;
+      this.user.password = this.inputPassword;
+      this.autentication
+        .SingIn(this.user)
+        .then((res) => {
+          this.navigate.navigateByUrl("/tabs");
+        })
+        .catch((err) => {
+          console.log(err);
+          this.visual.ToastMensagge("Login incorrect try again");
+        });
+    } else if (
+      this.inputMail === undefined ||
+      this.inputMail === null ||
+      this.inputMail === "" ||
+      !this.inputMail.includes("@") ||
+      !this.inputMail.includes(".")
+    ) {
+      this.inputMailInvalid = true;
+      this.inputPasswordInvalid = false;
+    } else if (
+      this.inputPassword === "" ||
+      this.inputPassword === undefined ||
+      this.inputPassword.length < 6
+    ) {
+      this.inputMailInvalid = false;
+      this.inputPasswordInvalid = true;
+    }
   }
 
-  ngOnInit() {
+  onClickSeePass() {
+    this.seePasswd = !this.seePasswd;
+    if (this.seePasswd) {
+      this.type = "text";
+    } else {
+      this.type = "password";
+    }
   }
 
-  Log(){
-    if (this.mail == "" && this.password == ""){
-    
-      this.gall="Fill the mail and password  correctly";
-      this.gpass = "";
-      this.gmail = "";
-      
-    }else if(this.password==""){
-        
-      this.gpass = "Fill the password correctly";
-      this.gall = "";
-      this.gmail = "";
-
-      }else if(this.mail==""){
-      
-      this.gmail = "Fill the mail correctly";
-      this.gall = "";
-      this.password = "";
-      
-    }else{
-
-      this.newUser.id="";
-      this.newUser.mail=this.mail;
-      this.newUser.password=this.password;
-
-          this.auSer.Log_in(this.newUser)
-            .then((datos) => {
-
-              console.log(datos);
-
-              this.ruta.navigateByUrl("/tabs");
-
-            }).catch(error => {
-
-              console.log(error);
-              this.visuSer.presentToast("Failed to Log-in");
-
-            });
-      }
+  onClickForgot() {
+    this.visual.AlertMens("Mail Recover").then((res) => {});
   }
-
-  Forgot(){
-
-    this.visuSer.Forgot_pass()
-      .then((datos) => {
-
-        
-        this.visuSer.presentToast("Try to log in again");
-
-
-      }).catch(error => {
-
-        console.log(error);
-        this.visuSer.presentToast("Failed to Reset your password try again");
-
-      });
-
-  }
-
-
 }

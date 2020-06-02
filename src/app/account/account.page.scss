@@ -1,0 +1,33 @@
+.Acc {
+  align-content: center;
+}
+.options {
+  padding-top: 1em;
+  text-shadow: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: medium;
+  align-content: center;
+  margin-bottom: 10%;
+}
+
+.header {
+  height: fit-content;
+  text-shadow: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: medium;
+  align-content: center;
+}
+
+.header ion-row {
+  margin-top: 1em;
+}
+
+.options ion-label {
+  margin-left: 1em;
+}
+
+.user_info {
+  font-size: smaller;
+}
