@@ -23,6 +23,7 @@ export class ItemInfoPage implements OnInit {
   userName: string;
   userMail: string;
   date: string;
+  chatOn: boolean;
 
   anonimo: boolean;
 
@@ -60,6 +61,7 @@ export class ItemInfoPage implements OnInit {
       this.userName = this.itemData.userName;
       this.date = this.itemData.creationDate;
       this.userMail = this.itemData.userMail;
+      this.chatOn = this.itemData.chatOn;
     });
   }
 
